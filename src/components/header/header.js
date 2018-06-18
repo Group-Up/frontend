@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as routes from '../../utils/routes';
+import { logout } from '../../actions/auth';
 
 class Header extends React.Component {
   render() {
@@ -17,7 +18,7 @@ class Header extends React.Component {
       <ul>
         <Link to={routes.DASHBOARD}><li>Dashboard</li></Link>
         <Link to={routes.SIGNUP}><li>Sign up</li></Link>
-        <li onClick={this.props.logout}>Log out</li>
+        <Link to={routes.LANDING}><li onClick={this.props.doLogout}>Log out</li></Link>
       </ul>;
 
     return (
@@ -33,7 +34,7 @@ class Header extends React.Component {
 
 Header.propTypes = {
   loggedIn: PropTypes.bool,
-  logout: PropTypes.func,
+  doLogout: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
@@ -41,9 +42,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  // logout: () => dispatch(ACTIONS.logout()),
+  doLogout: () => dispatch(logout()),
 });
 
-// export default connect(mapStateToProps, mapDispatchToProps)(Header);
-
-export default Header;
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

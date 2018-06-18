@@ -5,6 +5,8 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import Header from '../header/header';
 import AuthRedirect from '../auth-redirect/auth-redirect';
 import AuthLanding from '../auth-landing/auth-landing';
+import ProfileForm from '../profile-form-mock/profile-form-mock'; // TODO: switch to correct
+// profile form
 
 class App extends React.Component {
   componentDidMount() {
@@ -24,6 +26,7 @@ class App extends React.Component {
             <Route exact path='/' component={AuthLanding}/>
             <Route exact path='/login' component={AuthLanding}/>
             <Route exact path='/signup' component={AuthLanding}/>
+            <Route exact path='/profile/create' component={ProfileForm}/>
           </div>
         </BrowserRouter>
       </div>

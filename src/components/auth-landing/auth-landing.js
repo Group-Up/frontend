@@ -26,7 +26,7 @@ class AuthLanding extends React.Component {
   handleSignup(user) {
     return this.props.doSignup(user)
       .then(() => {
-        this.props.history.push(routes.DASHBOARD);
+        this.props.history.push(routes.CREATE_PROFILE);
       })
       .catch(console.error);
   }
