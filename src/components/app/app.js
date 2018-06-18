@@ -1,7 +1,9 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { BrowserRouter, Route } from 'react-router-dom';
 import Header from '../header/header';
+import AuthRedirect from '../auth-redirect/auth-redirect';
 
 class App extends React.Component {
   componentDidMount() {
@@ -17,6 +19,7 @@ class App extends React.Component {
         <BrowserRouter>
           <div>
             <Header/>
+            <Route path='*' component={AuthRedirect}/>
           </div>
         </BrowserRouter>
       </div>
@@ -33,5 +36,4 @@ const mapDispatchToProps = dispatch => ({
   // functions
 });
 
-// export default connect(mapStateToProps, mapDispatchToProps)(App);
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);
