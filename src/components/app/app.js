@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { BrowserRouter, Route } from 'react-router-dom';
 import Header from '../header/header';
 import AuthRedirect from '../auth-redirect/auth-redirect';
+import AuthLanding from '../auth-landing/auth-landing';
 
 class App extends React.Component {
   componentDidMount() {
@@ -20,12 +21,19 @@ class App extends React.Component {
           <div>
             <Header/>
             <Route path='*' component={AuthRedirect}/>
+            <Route exact path='/' component={AuthLanding}/>
+            <Route exact path='/login' component={AuthLanding}/>
+            <Route exact path='/signup' component={AuthLanding}/>
           </div>
         </BrowserRouter>
       </div>
     );
   }
 }
+
+App.propTypes = {
+  loggedIn: PropTypes.bool,
+};
 
 const mapStateToProps = state => ({
   loggedIn: !!state.token,
