@@ -44,4 +44,6 @@ const mapDispatchToProps = dispatch => ({
   // logout: () => dispatch(ACTIONS.logout()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+// export default connect(mapStateToProps, mapDispatchToProps)(Header);
+
+export default Header;
