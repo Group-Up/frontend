@@ -6,6 +6,8 @@ import Header from '../header/header';
 import Dashboard from '../dashboard/dashboard';
 import AuthRedirect from '../auth-redirect/auth-redirect';
 import AuthLanding from '../auth-landing/auth-landing';
+import ProfileForm from '../profile-form-mock/profile-form-mock'; // TODO: switch to correct
+// profile form
 
 class App extends React.Component {
   componentDidMount() {
@@ -27,7 +29,6 @@ class App extends React.Component {
             <Route exact path='/signup' component={AuthLanding}/>
             <Route exact path='/profiles' component={Dashboard}/>
             <Route exact path='/dashboard' component={Dashboard}/>
-
           </div>
         </BrowserRouter>
       </div>

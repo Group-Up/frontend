@@ -11,9 +11,13 @@ class AuthRedirect extends React.Component {
 
     let destinationRoute = null;
 
-    if (pathname === routes.LOGIN || pathname === routes.SIGNUP || pathname === routes.LANDING) {
+    if (pathname === routes.LOGIN || pathname === routes.LANDING) {
       if (token) {
         destinationRoute = routes.DASHBOARD;
+      }
+    } else if (pathname === routes.SIGNUP) {
+      if (token) {
+        destinationRoute = routes.CREATE_PROFILE;
       }
     } else if (!token) {
       destinationRoute = routes.LANDING;
