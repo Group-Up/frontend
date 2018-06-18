@@ -22,7 +22,6 @@ const signupRequest = user => (store) => {
     .send(user)
     .withCredentials()
     .then((response) => {
-      // TODO: if not working, check here
       const { token } = response.body;
       return store.dispatch(setToken(token));
     });
@@ -33,7 +32,6 @@ const loginRequest = user => (store) => {
     .auth(user.username, user.password)
     .withCredentials()
     .then((response) => {
-      // TODO: if not working, check here
       const { token } = response.body;
       return store.dispatch(setToken(token));
     });
