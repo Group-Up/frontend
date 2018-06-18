@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { BrowserRouter, Route } from 'react-router-dom';
 import Header from '../header/header';
+import Dashboard from '../dashboard/dashboard';
 import AuthRedirect from '../auth-redirect/auth-redirect';
 import AuthLanding from '../auth-landing/auth-landing';
 import ProfileForm from '../profile-form-mock/profile-form-mock'; // TODO: switch to correct
@@ -26,7 +27,8 @@ class App extends React.Component {
             <Route exact path='/' component={AuthLanding}/>
             <Route exact path='/login' component={AuthLanding}/>
             <Route exact path='/signup' component={AuthLanding}/>
-            <Route exact path='/profile/create' component={ProfileForm}/>
+            <Route exact path='/profiles' component={Dashboard}/>
+            <Route exact path='/dashboard' component={Dashboard}/>
           </div>
         </BrowserRouter>
       </div>
