@@ -30,6 +30,7 @@ class Dashboard extends React.Component {
         <h2>Welcome { username && username }</h2>
         <Profile profile={profile}/>
         <EventForm onComplete={this.props.doCreateEvent}/>
+        
       </div>
     );
   }
