@@ -23,12 +23,14 @@ const eventCreateRequest = event => (store) => {
     });
 };
 
-// const getPrivateEventsRequest = events => (store) => {
-//   const { token } = store.getState();
-//   return superagent.get(`${API_URL}/profile/events`)
-//     .set('Authorization', `Bearer ${token}`)
-//     .set('Content-Type', 'application/json')
-//     .then((response) => {});
-// }
+const getPrivateEventsRequest = () => (store) => {
+  const { token } = store.getState();
+  return superagent.get(`${API_URL}/profile/events`)
+    .set('Authorization', `Bearer ${token}`)
+    .set('Content-Type', 'application/json')
+    .then((response) => {
+      return store.dispatch(getPrivateEvents(response.body));
+    });
+};
 
-export { setEvent, eventCreateRequest, getPrivateEvents };
+export { setEvent, eventCreateRequest, getPrivateEvents, getPrivateEventsRequest };

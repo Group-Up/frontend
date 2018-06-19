@@ -16,12 +16,13 @@ class Dashboard extends React.Component {
       this.props.pFetchUserProfile()
         .then(() => {
           this.props.pFetchPosts();
+          this.props.pFetchEvents();
         })
         .catch(console.error);
     }
   }
   render() {
-    const { profile, posts } = this.props;
+    const { profile, events, posts } = this.props;
     const username = profile && profile.username;
     return (
       <div className='dashboard'>
@@ -40,6 +41,7 @@ Dashboard.propTypes = {
   loggedIn: PropTypes.bool,
   pFetchUserProfile: PropTypes.func,
   pFetchPosts: PropTypes.func,
+  pFetchEvents: PropTypes.func,
   posts: PropTypes.array,
   doCreateEvent: PropTypes.func,
 };
@@ -48,12 +50,14 @@ const mapStateToProps = state => ({
   profile: state.profile,
   loggedIn: !!state.token,
   posts: state.posts,
+  events: state.events,
 });
 
 const mapDispatchToProps = dispatch => ({
   // doCreateImage: image => dispatch(imageActions.createRequest(image)),
   pFetchUserProfile: () => dispatch(profileActions.profileFetchRequest()),
   pFetchPosts: () => dispatch(postActions.getPostsRequest()),
+  pFetchEvents: () => dispatch(eventActions.getPrivateEventsRequest()),
   doCreateEvent: event => dispatch(eventActions.eventCreateRequest(event)),
 });
 
