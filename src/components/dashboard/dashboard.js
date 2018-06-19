@@ -25,16 +25,20 @@ class Dashboard extends React.Component {
   render() {
     const { profile, events, posts } = this.props;
     const username = profile && profile.username;
-    const eventDisplay = <div>{events.map((event, i) => <EventItem event={event} key={i}/>)}</div>;
+    const eventDisplay = <div>{}</div>;
     return (
       <div className='dashboard'>
         <h1>Dashboard</h1>
         <h2>Welcome { username && username }</h2>
         <Profile profile={profile}/>
         <EventForm onComplete={this.props.doCreateEvent}/>
-      
-      { events.length > 0 ? { eventDisplay } : undefined}
-
+        {
++          events.length > 0 
+           ? 
+           events.map((event, i) => <EventItem event={event} key={i}/>) 
+           :
++          <p> No events to display </p>
++       }
       </div>
     );
   }
