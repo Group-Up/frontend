@@ -16,29 +16,20 @@ class ProfileForm extends React.Component {
   }
 
   handleValidation(name, value) {
-    switch (name) {
-      case 'bio':
-        if (value.type !== 'String') {
-          return 'Your bio only accepts text input';
-        }
-        return null;
-      default:
-        return null;
+    if (typeof value !== 'string') {
+      this.setState({ bioError: 'Your bio only accepts text input' });
+    } else {
+      this.setState({ bioError: null });
     }
   }
 
   handleChange(event) {
     const { name, value } = event.target;
-    this.setState({
-      [name]: value,
-      [`${name}Dirty`]: true,
-      [`${name}Error`]: this.handleValidation(name, value),
-    });
+    this.setState({ [name]: value });
   }
 
   handleSubmit(event) {
     event.preventDefault();
-
     if (this.state.bioError) {
       this.setState({ bioDirty: true });
     } else {
@@ -50,15 +41,14 @@ class ProfileForm extends React.Component {
     return (
       <form className='profile-form'
         onSubmit={this.handleSubmit}>
-        <input
+        <textarea
           name='bio'
-          type='text'
           placeholder='bio'
           value={this.state.bio}
           onChange={this.handleChange}
+          onBlur={() => this.handleValidation('bio', this.state.bio)}
         />
-        {this.state.bioDirty ? <p>{this.state.bioError}</p> : undefined}
-
+        {this.state.bioDirty && <p>{this.state.bioError}</p>}
         <button type='submit'>{this.props.profile ? 'update' : 'create'} profile </button>
       </form>
     );
