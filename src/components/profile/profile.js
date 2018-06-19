@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as routes from '../../utils/routes';
-
+import * as profileActions from '../../actions/profileAction';
 
 import autoBind from '../../utils/autobind';
 import ProfileForm from '../profile-form/profile-form';
@@ -76,8 +76,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  profileCreate: profile => dispatch(profileAction.profileCreateRequest(profile)),
-  profileUpdate: profile => dispatch(profileAction.profileUpdateRequest(profile)),
+  profileCreate: profile => dispatch(profileActions.profileCreateRequest(profile)),
+  profileUpdate: profile => dispatch(profileActions.profileUpdateRequest(profile)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

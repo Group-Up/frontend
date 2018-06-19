@@ -6,13 +6,14 @@ import Header from '../header/header';
 import Dashboard from '../dashboard/dashboard';
 import AuthRedirect from '../auth-redirect/auth-redirect';
 import AuthLanding from '../auth-landing/auth-landing';
-import ProfileForm from '../profile-form-mock/profile-form-mock'; // TODO: switch to correct
-// profile form
+import * as profileActions from '../../actions/profileAction';
+import Profile from '../profile/profile';
 
 class App extends React.Component {
   componentDidMount() {
     if (this.props.loggedIn) {
-      // get profile
+      this.props.pFetchUserProfile()
+        .catch(console.error);
       // get profile events?
     }
   }
@@ -27,7 +28,7 @@ class App extends React.Component {
             <Route exact path='/' component={AuthLanding}/>
             <Route exact path='/login' component={AuthLanding}/>
             <Route exact path='/signup' component={AuthLanding}/>
-            <Route exact path='/profiles' component={Dashboard}/>
+            <Route exact path='/profiles' component={Profile}/>
             <Route exact path='/dashboard' component={Dashboard}/>
           </div>
         </BrowserRouter>
@@ -38,6 +39,7 @@ class App extends React.Component {
 
 App.propTypes = {
   loggedIn: PropTypes.bool,
+  pFetchUserProfile: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
@@ -46,7 +48,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  // functions
+  pFetchUserProfile: () => dispatch(profileActions.profileFetchRequest()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
