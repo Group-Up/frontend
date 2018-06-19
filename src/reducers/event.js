@@ -1,7 +1,7 @@
 export default (state = null, { type, payload }) => {
   switch (type) {
     case 'EVENT_SET':
-      return [...state, payload];
+      return payload;
     case 'TOKEN_REMOVE':
       return null;
     default:
