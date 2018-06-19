@@ -25,7 +25,6 @@ class Dashboard extends React.Component {
   render() {
     const { profile, events, posts } = this.props;
     const username = profile && profile.username;
-    const eventDisplay = <div>{}</div>;
     return (
       <div className='dashboard'>
         <h1>Dashboard</h1>
@@ -33,12 +32,12 @@ class Dashboard extends React.Component {
         <Profile profile={profile}/>
         <EventForm onComplete={this.props.doCreateEvent}/>
         {
-+          events.length > 0 
+          events.length > 0 
            ? 
            events.map((event, i) => <EventItem event={event} key={i}/>) 
            :
-+          <p> No events to display </p>
-+       }
+          <p> No events to display </p>
+       }
       </div>
     );
   }
