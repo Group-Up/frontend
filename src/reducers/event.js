@@ -12,6 +12,9 @@ export default (state = null, { type, payload }) => {
     case 'EVENTS_GET':
       validateEvents(payload);
       return payload;
+    case 'GET_SINGLE_EVENT':
+      validateEvents(payload);
+      return payload;
     case 'TOKEN_REMOVE':
       return null;
     default:

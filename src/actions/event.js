@@ -11,9 +11,13 @@ const setEvent = event => ({
   payload: event,
 });
 
+const getEvent = event => ({
+  type: 'GET_SINGLE_EVENT',
+  payload: event,
+});
+
 const eventCreateRequest = event => (store) => {
   const { token, profile } = store.getState();
-  console.log(profile);
   return superagent.post(`${API_URL}${routes.EVENT}`)
     .set('Authorization', `Bearer ${token}`)
     .set('Content-Type', 'application/json')
@@ -33,4 +37,14 @@ const getPrivateEventsRequest = () => (store) => {
     });
 };
 
-export { setEvent, eventCreateRequest, getPrivateEvents, getPrivateEventsRequest };
+const getEventRequest = id => (store) => {
+  const { token } = store.getState();
+  return superagent.get(`${API_URL}/events/${id}`)
+    .set('Authorization', `Bearer ${token}`)
+    .set('Content-Type', 'application/json')
+    .then((response) => {
+      return store.dispatch(getEvent(response.body));
+    });
+};
+
+export { setEvent, eventCreateRequest, getPrivateEvents, getPrivateEventsRequest, getEventRequest };

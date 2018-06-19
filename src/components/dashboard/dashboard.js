@@ -7,6 +7,7 @@ import * as eventActions from '../../actions/event';
 // import * as imageActions from '../../actions/images';
 // import { WELCOME } from '../../text';
 import Profile from '../profile/profile';
+import EventItem from '../event-item/event-item';
 import * as profileActions from '../../actions/profile';
 import * as postActions from '../../actions/posts';
 
@@ -24,13 +25,16 @@ class Dashboard extends React.Component {
   render() {
     const { profile, events, posts } = this.props;
     const username = profile && profile.username;
+    const eventDisplay = <div>{events.map((event, i) => <EventItem event={event} key={i}/>)}</div>;
     return (
       <div className='dashboard'>
         <h1>Dashboard</h1>
         <h2>Welcome { username && username }</h2>
         <Profile profile={profile}/>
         <EventForm onComplete={this.props.doCreateEvent}/>
-        
+      
+      { events.length > 0 ? { eventDisplay } : undefined}
+
       </div>
     );
   }
@@ -44,6 +48,7 @@ Dashboard.propTypes = {
   pFetchPosts: PropTypes.func,
   pFetchEvents: PropTypes.func,
   posts: PropTypes.array,
+  events: PropTypes.array,
   doCreateEvent: PropTypes.func,
 };
 
