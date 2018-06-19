@@ -1,5 +1,4 @@
 import superagent from 'superagent';
-import * as routes from '../utils/routes';
 
 const setProfile = profile => ({
   type: 'CLIENT_PROFILE_SET',
@@ -8,8 +7,7 @@ const setProfile = profile => ({
 
 const profileCreateRequest = profile => (store) => {
   const { token } = store.getState();
-
-  return superagent.post(`${API_URL}${routes.PROFILE_ROUTE}`)
+  return superagent.post(`${API_URL}/profiles`)
     .set('Authorization', `Bearer ${token}`)
     .set('Content-Type', 'application/json')
     .send(profile)
@@ -20,8 +18,7 @@ const profileCreateRequest = profile => (store) => {
 
 const profileUpdateRequest = profile => (store) => {
   const { token } = store.getState();
-
-  return superagent.put(`${API_URL}${routes.PROFILE_ROUTE}/${profile._id}`)
+  return superagent.put(`${API_URL}/profile`)
     .set('Authorization', `Bearer ${token}`)
     .set('Content-Type', 'application/json')
     .send(profile)
@@ -32,13 +29,13 @@ const profileUpdateRequest = profile => (store) => {
 
 const profileFetchRequest = () => (store) => {
   const { token } = store.getState();
-
-  return superagent.get(`${API_URL}${routes.PROFILE_ROUTE}/me`) // Zachary - does this need to be /me or /_id?
+  return superagent.get(`${API_URL}/profiles/me`)
     .set('Authorization', `Bearer ${token}`)
+    .set('Content-Type', 'application/json')
     .then((response) => {
       return store.dispatch(setProfile(response.body));
     });
 };
 
 
-export { setProfile, profileCreateRequest, profileUpdateRequest, profileFetchRequest };
+export { profileCreateRequest, profileUpdateRequest, profileFetchRequest };

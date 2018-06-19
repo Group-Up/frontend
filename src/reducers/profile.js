@@ -2,17 +2,9 @@ const D23_001 = 'Profile is required';
 const D23_002 = 'Invalid Profile';
 
 const validateProfile = (profile) => {
-  if (!profile) {
-    throw new Error(D23_001);
-  }
-  const {
-    bio,
-  } = profile;
-
-  if (!bio) {
-    throw new Error(D23_002);
-  }
-  return undefined; // Zachary -double check if return undefined is needed
+  if (!profile) throw new Error(D23_001);
+  const { bio } = profile;
+  if (!bio) throw new Error(D23_002);
 };
 
 export default (state = null, { type, payload }) => {

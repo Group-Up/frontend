@@ -2,12 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as routes from '../../utils/routes';
-import * as profileActions from '../../actions/profileAction';
+import * as profileActions from '../../actions/profile';
 import * as imageActions from '../../actions/image';
-
 import autoBind from '../../utils/autobind';
 import ProfileForm from '../profile-form/profile-form';
-import ImageForm from '../image-form/image-form';
+// import ImageForm from '../image-form/image-form';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -23,7 +22,7 @@ class Profile extends React.Component {
   handleCreate(profile) {
     this.props.profileCreate(profile)
       .then(() => {
-        this.props.history.push(routes.DASHBOARD_ROUTE);
+        this.props.history.push(routes.DASHBOARD);
       });
   }
 
@@ -49,7 +48,6 @@ class Profile extends React.Component {
         <div>
           <button onClick={() => this.setState({ editing: true })}> Edit</button>
         </div>;
-
       JSXProfile =
         <div>
           <p>{profile.bio}</p>
@@ -58,9 +56,7 @@ class Profile extends React.Component {
     }
     return (
       <div>
-        <h1>PROFILE</h1>
         {profile ? JSXProfile : <ProfileForm onComplete={this.handleCreate} />}
-        <ImageForm onComplete={this.props.doCreateImage} /> 
       </div>
     );
   }
