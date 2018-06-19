@@ -11,7 +11,7 @@ const createRequest = image => (store) => {
 
   return superagent.post(`${API_URL}${routes.IMAGES}`)
     .set('Authorization', `Bearer ${token}`)
-    .field('description', image.description)
+    .field('caption', image.caption)
     .attach('image', image.image)
     .then((response) => {
       return store.dispatch(create(response.body));

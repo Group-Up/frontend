@@ -6,10 +6,10 @@ export const validateImage = (image) => {
     throw new Error(GU_001);
   }
   const {
-    _id, url, description, account,
+    _id, url, caption, account,
   } = image;
 
-  if (!_id || !url || !description || !account) {
+  if (!_id || !url || !caption || !account) {
     throw new Error(GU_002);
   }
 };

@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { WELCOME } from '../../text';
-// import PictureForm from '../picture-form/picture-form';
-// import * as clientPicturesActions from '../../actions/client-pictures';
+// import ImageForm from '../image-form/image-form';
+// import * as imageActions from '../../actions/images';
 
 class Dashboard extends React.Component {
   render() {
@@ -12,18 +12,18 @@ class Dashboard extends React.Component {
       <div className='dashboard'>
         <h1> {WELCOME} </h1>
         <h2> You can only see this if you are logged in </h2>
-        {/* <PictureForm onComplete={this.props.doCreatePicture} /> */}
+        {/* <ImageForm onComplete={this.props.doCreateImage} /> */}
       </div>
     );
   }
 }
 
 Dashboard.propTypes = {
-  doCreatePicture: PropTypes.func,
+  doCreateImage: PropTypes.func,
 };
 
 const mapDispatchToProps = dispatch => ({
-  // doCreatePicture: picture => dispatch(clientPicturesActions.createRequest(picture)),
+  // doCreateImage: image => dispatch(imageActions.createRequest(image)),
 });
 
 export default connect(null, mapDispatchToProps)(Dashboard);
