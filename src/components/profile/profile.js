@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as routes from '../../utils/routes';
 import * as profileActions from '../../actions/profileAction';
-import * as imageActions from '../../actions/images';
+import * as imageActions from '../../actions/image';
 
 import autoBind from '../../utils/autobind';
 import ProfileForm from '../profile-form/profile-form';
