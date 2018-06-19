@@ -1,7 +1,8 @@
-const D23_004 = 'No posts';
+const D23_004 = 'No post returned';
 
-const validatePosts = (posts) => {
-  if (!posts) throw new Error(D23_004);
+const validatePosts = (post) => {
+  if (!post) throw new Error(D23_004);
+  if (!post.id) throw new Error('Bad post');
 };
 
 export default (state = [], { type, payload }) => {
@@ -9,8 +10,10 @@ export default (state = [], { type, payload }) => {
     case 'TOKEN_REMOVE':
       return [];
     case 'POSTS_GET':
-      validatePosts(payload);
       return payload;
+    case 'POST_CREATE':
+      validatePosts(payload);
+      return [...state, payload];
     default:
       return state;
   }

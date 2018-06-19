@@ -14,7 +14,8 @@ class App extends React.Component {
     if (this.props.loggedIn) {
       this.props.pFetchUserProfile()
         .catch(console.error);
-      // get profile events?
+    } else {
+      // this.props.pFetchPublicEvents();
     }
   }
 
@@ -44,7 +45,6 @@ App.propTypes = {
 
 const mapStateToProps = state => ({
   loggedIn: !!state.token,
-  // other things
 });
 
 const mapDispatchToProps = dispatch => ({
