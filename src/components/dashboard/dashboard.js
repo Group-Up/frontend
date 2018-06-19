@@ -10,6 +10,7 @@ import Profile from '../profile/profile';
 import EventItem from '../event-item/event-item';
 import * as profileActions from '../../actions/profile';
 import * as postActions from '../../actions/posts';
+import PostItem from '../post-item/post-item';
 
 class Dashboard extends React.Component {
   componentDidMount() {
@@ -23,7 +24,7 @@ class Dashboard extends React.Component {
     }
   }
   render() {
-    const { profile, events, posts } = this.props;
+    const { profile, posts, events } = this.props;
     const username = profile && profile.username;
     return (
       <div className='dashboard'>
@@ -31,13 +32,20 @@ class Dashboard extends React.Component {
         <h2>Welcome { username && username }</h2>
         <Profile profile={profile}/>
         <EventForm onComplete={this.props.doCreateEvent}/>
+
+        <h3>My Events:</h3>
         {
           events.length > 0 
            ? 
            events.map((event, i) => <EventItem event={event} key={i}/>) 
            :
           <p> No events to display </p>
-       }
+        }
+        <h3>Recent Posts:</h3>
+        {
+          posts.length > 0 ? posts.map(post => <PostItem post={post} key={post._id}/>) :
+            <p>No posts to display</p>
+        }
       </div>
     );
   }
