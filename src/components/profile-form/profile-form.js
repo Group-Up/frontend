@@ -4,9 +4,9 @@ import autoBind from '../../utils/autobind';
 
 const defaultState = {
   bio: '',
+  bioDirty: false,
+  bioError: 'Error with your how your bio is created',
 };
-
-const PHONE_NUMBER_LENGTH = 12;
 
 class ProfileForm extends React.Component {
   constructor(props) {
@@ -15,36 +15,36 @@ class ProfileForm extends React.Component {
     autoBind.call(this, ProfileForm);
   }
 
-  // handleValidation(name, value) {
-  //   switch (name) {
-  //     case 'phoneNumber':
-  //       if (value.length !== PHONE_NUMBER_LENGTH) {
-  //         return 'Your phone number must include: \'+\', \'area code\', \'seven digit number, no dashes or parenthesis';
-  //       }
-  //       return null;
-  //     default:
-  //       return null;
-  //   }
-  // }
+  handleValidation(name, value) {
+    switch (name) {
+      case 'bio':
+        if (value.type !== 'String') {
+          return 'Your bio only accepts text input';
+        }
+        return null;
+      default:
+        return null;
+    }
+  }
 
-  // handleChange(event) {
-  //   const { name, value } = event.target;
-  //   this.setState({
-  //     [name]: value,
-  //     [`${name}Dirty`]: true,
-  //     [`${name}Error`]: this.handleValidation(name, value),
-  //   });
-  // }
+  handleChange(event) {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value,
+      [`${name}Dirty`]: true,
+      [`${name}Error`]: this.handleValidation(name, value),
+    });
+  }
 
-  // handleSubmit(event) {
-  //   event.preventDefault();
+  handleSubmit(event) {
+    event.preventDefault();
 
-  //   if (this.state.phoneNumberError) {
-  //     this.setState({ phoneNumberDirty: true });
-  //   } else {
-  //     this.props.onComplete(this.state);
-  //   }
-  // }
+    if (this.state.bioError) {
+      this.setState({ bioDirty: true });
+    } else {
+      this.props.onComplete(this.state);
+    }
+  }
 
   render() {
     return (
@@ -57,6 +57,7 @@ class ProfileForm extends React.Component {
           value={this.state.bio}
           onChange={this.handleChange}
         />
+        {this.state.bioDirty ? <p>{this.state.bioError}</p> : undefined}
 
         <button type='submit'>{this.props.profile ? 'update' : 'create'} profile </button>
       </form>
