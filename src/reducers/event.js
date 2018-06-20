@@ -10,6 +10,8 @@ export default (state = [], { type, payload }) => {
       return payload;
     case 'EVENT_REMOVE':
       return state.filter(event => event._id !== payload._id);
+    case 'EVENT_UPDATE':
+      return state.map(event => (event._id === payload._id ? payload : event));
     case 'TOKEN_REMOVE':
       return [];
     default:

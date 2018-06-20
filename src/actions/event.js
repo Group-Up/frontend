@@ -12,6 +12,11 @@ const setEvent = event => ({
   payload: event,
 });
 
+const updateEvent = event => ({
+  type: 'EVENT_UPDATE',
+  payload: event,
+});
+
 const removeEvent = event => ({
   type: 'EVENT_REMOVE',
   payload: event,
@@ -38,6 +43,17 @@ const getPrivateEventsRequest = () => (store) => {
     });
 };
 
+const updateEventRequest = event => (store) => {
+  const { token } = store.getState();
+  return superagent.put(`${API_URL}/events/${event._id}`)
+    .set('Authorization', `Bearer ${token}`)
+    .set('Content-Type', 'application/json')
+    .send(event)
+    .then((response) => {
+      return store.dispatch(updateEvent(response.body));
+    });
+};
+
 const removeEventRequest = event => (store) => {
   const { token } = store.getState();
   return superagent.del(`${API_URL}/events/${event._id}`)
@@ -47,4 +63,4 @@ const removeEventRequest = event => (store) => {
     });
 };
 
-export { eventCreateRequest, getPrivateEventsRequest, removeEventRequest };
+export { eventCreateRequest, getPrivateEventsRequest, removeEventRequest, updateEventRequest };

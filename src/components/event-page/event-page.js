@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import PostItem from '../post-item/post-item';
 import * as postActions from '../../actions/posts';
 import * as selectedEventActions from '../../actions/single-event';
 import PostForm from '../post-form/post-form';
+import EventForm from '../event-form/event-form';
 import * as eventActions from '../../actions/event';
 import * as routes from '../../utils/routes';
 import autobind from '../../utils/autobind';
@@ -13,8 +13,10 @@ import autobind from '../../utils/autobind';
 class EventPage extends React.Component {
   constructor(props) {
     super(props);
+    this.state = this.props.selectedEvent;
     autobind.call(this, EventPage);
   }
+
   componentDidMount() {
     const id = this.props.location.pathname.split('/')[2];
     this.props.fetchSelectedEvent(id)
@@ -28,6 +30,7 @@ class EventPage extends React.Component {
     this.props.deleteEvent(this.props.selectedEvent);
     this.props.history.push(routes.DASHBOARD);
   }
+
   render() {
     const { selectedEvent, posts } = this.props;
     return (
@@ -36,9 +39,12 @@ class EventPage extends React.Component {
         <h3>{ selectedEvent.date }</h3>
         <h3>{ selectedEvent.location }</h3>
         <p>{ selectedEvent.description }</p>
+        { (selectedEvent && selectedEvent.title) &&
+          <EventForm event={selectedEvent} onComplete={this.props.updateEvent}/> }
         <button onClick={this.handleClick}>
           DELETE EVENT
         </button>
+
         {
           posts.length > 0 ? posts.map(post => <PostItem post={post} key={post._id} show={true}/>) :
             <p>No posts to display</p>
@@ -65,6 +71,7 @@ EventPage.propTypes = {
   deleteEvent: PropTypes.func,
   location: PropTypes.object,
   history: PropTypes.object,
+  updateEvent: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
@@ -77,6 +84,7 @@ const mapDispatchToProps = dispatch => ({
   fetchSelectedEvent: id => dispatch(selectedEventActions.getEventRequest(id)),
   createPostRequest: (post, id) => dispatch(postActions.createPostRequest(post, id)),
   deleteEvent: event => dispatch(eventActions.removeEventRequest(event)),
+  updateEvent: event => dispatch(eventActions.updateEventRequest(event)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EventPage);
