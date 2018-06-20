@@ -16,6 +16,8 @@ export default (state = [], { type, payload }) => {
       return [...state, payload];
     case 'POST_REMOVE':
       return state.filter(post => post._id !== payload._id);
+    case 'POST_UPDATE':
+      return state.map(post => (post._id === payload._id ? payload : post));
     default:
       return state;
   }
