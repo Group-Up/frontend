@@ -14,7 +14,8 @@ class PostItem extends React.Component {
         <h3>{ post.title }</h3>
         <p>{ post.date }</p>
         <p>{ post.location }</p>
-        <p>{ post.likes.length }</p>
+        <p>{ post.likes.length > 0 && post.likes.length }</p>
+        <img src={post.imageUrl}/>
         <button onClick={() => this.props.deletePost(post)} className={show}> Delete </button>
         <div className={show}>
           <PostForm onComplete={this.props.updatePost} post={post} type={post.type}/>

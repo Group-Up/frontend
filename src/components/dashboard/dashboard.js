@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import EventForm from '../event-form/event-form';
 import * as eventActions from '../../actions/event';
-// import ImageForm from '../image-form/image-form';
-// import * as imageActions from '../../actions/images';
 import Profile from '../profile/profile';
 import EventItem from '../event-item/event-item';
 import * as profileActions from '../../actions/profile';
@@ -59,7 +57,6 @@ class Dashboard extends React.Component {
 }
 
 Dashboard.propTypes = {
-  // doCreateImage: PropTypes.func,
   profile: PropTypes.object,
   loggedIn: PropTypes.bool,
   pFetchUserProfile: PropTypes.func,
@@ -78,7 +75,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  // doCreateImage: image => dispatch(imageActions.createRequest(image)),
   pFetchUserProfile: () => dispatch(profileActions.profileFetchRequest()),
   pFetchPosts: () => dispatch(postActions.getPostsRequest()),
   pFetchEvents: () => dispatch(eventActions.getPrivateEventsRequest()),

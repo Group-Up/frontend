@@ -54,7 +54,7 @@ class ImageForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.onComplete(this.state);
+    this.props.onComplete(this.state, this.props.event._id);
 
     this.setState(this.emptyState);
   }
@@ -84,6 +84,7 @@ class ImageForm extends React.Component {
 
 ImageForm.propTypes = {
   onComplete: PropTypes.func,
+  event: PropTypes.object,
 };
 
 

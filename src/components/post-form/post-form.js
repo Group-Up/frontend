@@ -2,14 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import autobind from '../../utils/autobind';
+import ImageForm from '../image-form/image-form';
+import * as imageActions from '../../actions/image';
 
 const defaultState = {
   title: '',
   titleDirty: false,
   titleError: '',
-
-  // imageUrl: '',
-
   description: '',
   descriptionDirty: false,
   descriptionError: '',
@@ -34,6 +33,8 @@ class PostForm extends React.Component {
       if (this.props.type === 'announcement') {
         this.props.onComplete({ ...this.state, isAnnouncement: true, type: this.props.type }, id);
         this.setState(defaultState);
+      } else if (this.props.type === 'photo') {
+        this.props.onComplete({ ...this.state, imageUrl: '' });
       } else {
         this.props.onComplete({ ...this.state, type: this.props.type }, id);
         this.setState(defaultState);
@@ -58,40 +59,34 @@ class PostForm extends React.Component {
   render() {
     const { type } = this.props;
     const buttonText = this.props.post ? 'Update' : 'Add';
-    const textPostJSX =
-      <textarea
+    const nonImagePostJSX = <form onSubmit={this.handleSubmit}>
+    <input
+      type='text'
+      name='title'
+      placeholder='Title'
+      onChange={this.handleChange}
+      onBlur={() => this.handleValidation('title', this.state.title)}
+      value={this.state.title}
+    />
+    {this.state.titleDirty && <p>{ this.state.titleError }</p>}
+    <textarea
         placeholder='enter text here'
         name='description'
         onChange={this.handleChange}
         onBlur={() => this.handleValidation('description', this.state.description)}
         value={this.state.description}
       />;
-    const photoPostJSX = <p>Photo JSX here</p>;
-    const announcementJSX =
-      <input
-        type='text'
-        name='description'
-        placeholder='Description'
-        onChange={this.handleChange}
-        value={this.state.description}
-      />;
+    {this.state.descriptionDirty && <p>{ this.state.descriptionError }</p>}
+    <button type='submit'> {buttonText} </button>
+  </form>;
     return (
-      <form onSubmit={this.handleSubmit}>
-        <input
-          type='text'
-          name='title'
-          placeholder='Title'
-          onChange={this.handleChange}
-          onBlur={() => this.handleValidation('title', this.state.title)}
-          value={this.state.title}
-        />
-        {this.state.titleDirty && <p>{ this.state.titleError }</p>}
-        {type === 'text' && textPostJSX}
-        {type === 'photo' && photoPostJSX}
-        {type === 'announcement' && announcementJSX}
-        {this.state.descriptionDirty && <p>{ this.state.descriptionError }</p>}
-        <button type='submit'> {buttonText} </button>
-      </form>
+      <div>
+        { type === 'photo' 
+        ? 
+        <ImageForm event={this.props.selectedEvent} onComplete={this.props.pPostImageRequest}/> 
+        : 
+        nonImagePostJSX }
+      </div>
     );
   }
 }
@@ -101,10 +96,15 @@ PostForm.propTypes = {
   post: PropTypes.object,
   onComplete: PropTypes.func,
   selectedEvent: PropTypes.object,
+  pPostImageRequest: PropTypes.func,
 };
 
 const mapStatetoProps = state => ({
   selectedEvent: state.selectedEvent,
 });
 
-export default connect(mapStatetoProps)(PostForm);
+const mapDispatchToProps = dispatch => ({
+  pPostImageRequest: (image, event) => dispatch(imageActions.createRequest(image, event)),
+});
+
+export default connect(mapStatetoProps, mapDispatchToProps)(PostForm);
