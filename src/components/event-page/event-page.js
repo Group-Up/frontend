@@ -1,18 +1,32 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import PostItem from '../post-item/post-item';
 import * as postActions from '../../actions/posts';
 import * as selectedEventActions from '../../actions/single-event';
 import PostForm from '../post-form/post-form';
+import * as eventActions from '../../actions/event';
+import * as routes from '../../utils/routes';
+import autobind from '../../utils/autobind';
 
 class EventPage extends React.Component {
+  constructor(props) {
+    super(props);
+    autobind.call(this, EventPage);
+  }
   componentDidMount() {
     const id = this.props.location.pathname.split('/')[2];
     this.props.fetchSelectedEvent(id)
       .then(() => {
         this.props.fetchEventPosts(this.props.selectedEvent._id);
-      })
+      });
+  }
+
+  handleClick(event) {
+    event.preventDefault();
+    this.props.deleteEvent(this.props.selectedEvent);
+    this.props.history.push(routes.DASHBOARD);
   }
   render() {
     const { selectedEvent, posts } = this.props;
@@ -22,8 +36,11 @@ class EventPage extends React.Component {
         <h3>{ selectedEvent.date }</h3>
         <h3>{ selectedEvent.location }</h3>
         <p>{ selectedEvent.description }</p>
+        <button onClick={this.handleClick}>
+          DELETE EVENT
+        </button>
         {
-          posts.length > 0 ? posts.map(post => <PostItem post={post} key={post._id}/>) :
+          posts.length > 0 ? posts.map(post => <PostItem post={post} key={post._id} show={true}/>) :
             <p>No posts to display</p>
         }
         <h4>Upload photo</h4>
@@ -45,6 +62,9 @@ EventPage.propTypes = {
   fetchEventPosts: PropTypes.func,
   fetchSelectedEvent: PropTypes.func,
   createPostRequest: PropTypes.func,
+  deleteEvent: PropTypes.func,
+  location: PropTypes.object,
+  history: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
@@ -56,6 +76,7 @@ const mapDispatchToProps = dispatch => ({
   fetchEventPosts: id => dispatch(postActions.getEventPosts(id)),
   fetchSelectedEvent: id => dispatch(selectedEventActions.getEventRequest(id)),
   createPostRequest: (post, id) => dispatch(postActions.createPostRequest(post, id)),
+  deleteEvent: event => dispatch(eventActions.removeEventRequest(event)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EventPage);

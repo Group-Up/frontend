@@ -43,13 +43,14 @@ class Dashboard extends React.Component {
         {
           events.length > 0 
            ? 
-           events.map((event, i) => <EventItem event={event} key={i}/>)
+           events.map(event => <EventItem event={event} key={event._id}/>)
            :
           <p> No events to display </p>
         }
         <h3>Recent Posts:</h3>
         {
-          posts.length > 0 ? posts.map(post => <PostItem post={post} key={post._id}/>) :
+          posts.length > 0 ?
+            posts.map(post => <PostItem post={post} show={false} key={post._id}/>) :
             <p>No posts to display</p>
         }
       </div>
