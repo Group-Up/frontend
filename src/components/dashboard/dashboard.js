@@ -5,7 +5,6 @@ import EventForm from '../event-form/event-form';
 import * as eventActions from '../../actions/event';
 // import ImageForm from '../image-form/image-form';
 // import * as imageActions from '../../actions/images';
-// import { WELCOME } from '../../text';
 import Profile from '../profile/profile';
 import EventItem from '../event-item/event-item';
 import * as profileActions from '../../actions/profile';
