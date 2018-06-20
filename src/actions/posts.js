@@ -30,9 +30,9 @@ const getEventPosts = id => (store) => {
     });
 };
 
-const createPostRequest = post => (store) => {
+const createPostRequest = (post, eventID) => (store) => {
   const { token } = store.getState();
-  return superagent.post(`${API_URL}/posts`)
+  return superagent.post(`${API_URL}/posts/${eventID}`)
     .set('Authorization', `Bearer ${token}`)
     .set('Content-Type', 'application/json')
     .send(post)

@@ -2,7 +2,7 @@ const D23_004 = 'No post returned';
 
 const validatePosts = (post) => {
   if (!post) throw new Error(D23_004);
-  if (!post.id) throw new Error('Bad post');
+  if (!post._id) throw new Error('Bad post');
 };
 
 export default (state = [], { type, payload }) => {

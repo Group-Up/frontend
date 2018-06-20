@@ -5,14 +5,19 @@ import EventForm from '../event-form/event-form';
 import * as eventActions from '../../actions/event';
 // import ImageForm from '../image-form/image-form';
 // import * as imageActions from '../../actions/images';
-// import { WELCOME } from '../../text';
 import Profile from '../profile/profile';
 import EventItem from '../event-item/event-item';
 import * as profileActions from '../../actions/profile';
 import * as postActions from '../../actions/posts';
 import PostItem from '../post-item/post-item';
+import autobind from '../../utils/autobind';
 
 class Dashboard extends React.Component {
+  constructor(props) {
+    super(props);
+    autobind.call(this, Dashboard);
+  }
+
   componentDidMount() {
     if (this.props.loggedIn) {
       this.props.pFetchUserProfile()
@@ -23,6 +28,7 @@ class Dashboard extends React.Component {
         .catch(console.error);
     }
   }
+
   render() {
     const { profile, posts, events } = this.props;
     const username = profile && profile.username;
@@ -37,7 +43,7 @@ class Dashboard extends React.Component {
         {
           events.length > 0 
            ? 
-           events.map((event, i) => <EventItem event={event} key={i}/>) 
+           events.map((event, i) => <EventItem event={event} key={i}/>)
            :
           <p> No events to display </p>
         }
