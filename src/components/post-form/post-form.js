@@ -32,10 +32,10 @@ class PostForm extends React.Component {
     const id = this.props.selectedEvent._id;
     if (!this.state.titleError && !this.state.descriptionError) {
       if (this.props.type === 'announcement') {
-        this.props.onComplete({ ...this.state, isAnnouncement: true }, id);
+        this.props.onComplete({ ...this.state, isAnnouncement: true, type: this.props.type }, id);
         this.setState(defaultState);
       } else {
-        this.props.onComplete(this.state, id);
+        this.props.onComplete({ ...this.state, type: this.props.type }, id);
         this.setState(defaultState);
       }
     } else {
@@ -57,6 +57,7 @@ class PostForm extends React.Component {
 
   render() {
     const { type } = this.props;
+    const buttonText = this.props.post ? 'Update' : 'Add';
     const textPostJSX =
       <textarea
         placeholder='enter text here'
@@ -89,7 +90,7 @@ class PostForm extends React.Component {
         {type === 'photo' && photoPostJSX}
         {type === 'announcement' && announcementJSX}
         {this.state.descriptionDirty && <p>{ this.state.descriptionError }</p>}
-        <button type='submit'> Add </button>
+        <button type='submit'> {buttonText} </button>
       </form>
     );
   }
