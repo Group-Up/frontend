@@ -3,24 +3,23 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import autobind from '../../utils/autobind';
 
+const defaultState = {
+  title: '',
+  titleDirty: false,
+  titleError: '',
+
+  // imageUrl: '',
+
+  description: '',
+  descriptionDirty: false,
+  descriptionError: '',
+};
+
 class PostForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = this.props.post ? this.props.post : this.defaultState;
+    this.state = this.props.post ? this.props.post : defaultState;
     autobind.call(this, PostForm);
-    this.defaultState = {
-      title: '',
-      titleDirty: false,
-      titleError: '',
-
-      // imageUrl: '',
-
-      description: '',
-      descriptionDirty: false,
-      descriptionError: '',
-
-      isAnnouncement: this.props.type === 'announcement',
-    };
   }
 
   handleChange(event) {
@@ -30,8 +29,13 @@ class PostForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    const id = this.props.selectedEvent._id;
     if (!this.state.titleError && !this.state.descriptionError) {
-      this.props.onComplete(this.state);
+      if (this.props.type === 'announcement') {
+        this.props.onComplete({ ...this.state, isAnnouncement: true }, id);
+      } else {
+        this.props.onComplete(this.state, id);
+      }
     } else {
       this.setState({
         titleDirty: true,
@@ -66,7 +70,7 @@ class PostForm extends React.Component {
         name='description'
         placeholder='Description'
         onChange={this.handleChange}
-        value={this.state.title}
+        value={this.state.description}
       />;
     return (
       <form onSubmit={this.handleSubmit}>
@@ -78,11 +82,12 @@ class PostForm extends React.Component {
           onBlur={() => this.handleValidation('title', this.state.title)}
           value={this.state.title}
         />
-        {this.state.titleDirty && <p>this.state.titleError</p>}
+        {this.state.titleDirty && <p>{ this.state.titleError }</p>}
         {type === 'text' && textPostJSX}
         {type === 'photo' && photoPostJSX}
         {type === 'announcement' && announcementJSX}
-        {this.state.descriptionDirty && <p>this.state.descriptionError</p>}
+        {this.state.descriptionDirty && <p>{ this.state.descriptionError }</p>}
+        <button type='submit'> Add </button>
       </form>
     );
   }
@@ -92,6 +97,11 @@ PostForm.propTypes = {
   type: PropTypes.string,
   post: PropTypes.object,
   onComplete: PropTypes.func,
+  selectedEvent: PropTypes.object,
 };
 
-export default connect(null, null)(PostForm);
+const mapStatetoProps = state => ({
+  selectedEvent: state.selectedEvent,
+});
+
+export default connect(mapStatetoProps)(PostForm);

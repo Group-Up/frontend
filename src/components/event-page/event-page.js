@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import PostItem from '../post-item/post-item';
 import * as postActions from '../../actions/posts';
 import * as selectedEventActions from '../../actions/single-event';
+import PostForm from '../post-form/post-form';
 
 class EventPage extends React.Component {
   componentDidMount() {
@@ -25,6 +26,14 @@ class EventPage extends React.Component {
           posts.length > 0 ? posts.map(post => <PostItem post={post} key={post._id}/>) :
             <p>No posts to display</p>
         }
+        <h4>Upload photo</h4>
+        <PostForm type='photo' onComplete={this.props.createPostRequest}/>
+
+        <h4>Make text post</h4>
+        <PostForm type='text' onComplete={this.props.createPostRequest}/>
+
+        <h4>Add announcement</h4>
+        <PostForm type='announcement' onComplete={this.props.createPostRequest}/>
       </div>
     );
   }
@@ -35,6 +44,7 @@ EventPage.propTypes = {
   posts: PropTypes.array,
   fetchEventPosts: PropTypes.func,
   fetchSelectedEvent: PropTypes.func,
+  createPostRequest: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
@@ -44,7 +54,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchEventPosts: id => dispatch(postActions.getEventPosts(id)),
-  fetchSelectedEvent: id => dispatch(selectedEventActions.getEventRequest(id))
+  fetchSelectedEvent: id => dispatch(selectedEventActions.getEventRequest(id)),
+  createPostRequest: (post, id) => dispatch(postActions.createPostRequest(post, id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EventPage);
