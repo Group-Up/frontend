@@ -33,8 +33,10 @@ class PostForm extends React.Component {
     if (!this.state.titleError && !this.state.descriptionError) {
       if (this.props.type === 'announcement') {
         this.props.onComplete({ ...this.state, isAnnouncement: true }, id);
+        this.setState(defaultState);
       } else {
         this.props.onComplete(this.state, id);
+        this.setState(defaultState);
       }
     } else {
       this.setState({

@@ -10,6 +10,11 @@ const createPost = post => ({
   payload: post,
 });
 
+const removePost = post => ({
+  type: 'POST_REMOVE',
+  payload: post,
+});
+
 const getPostsRequest = () => (store) => {
   const { token } = store.getState();
   return superagent.get(`${API_URL}/posts/me`)
@@ -41,4 +46,13 @@ const createPostRequest = (post, eventID) => (store) => {
     });
 };
 
-export { getPostsRequest, getEventPosts, createPostRequest };
+const removePostRequest = post => (store) => {
+  const { token } = store.getState();
+  return superagent.del(`${API_URL}/posts/${post._id}`)
+    .set('Authorization', `Bearer ${token}`)
+    .then(() => {
+      return store.dispatch(removePost(post));
+    });
+};
+
+export { getPostsRequest, getEventPosts, createPostRequest, removePostRequest };

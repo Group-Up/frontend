@@ -50,6 +50,7 @@ class Profile extends React.Component {
         </div>;
       JSXProfile =
         <div>
+          <img src={profile.profileImage}/>
           <p>{profile.bio}</p>
           {this.state.editing ? JSXEditing : JSXDisplay}
         </div>;

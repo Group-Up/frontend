@@ -1,17 +1,15 @@
-const D23_005 = 'No Events';
 
 export default (state = [], { type, payload }) => {
-  const validateEvents = (events) => {
-    if (!events) throw new Error(D23_005);
-  };
-
   switch (type) {
     case 'EVENT_SET':
-      validateEvents(payload);
-      return [...state, payload];
+      if (state.indexOf(payload) < 0) {
+        return [payload, ...state];
+      }
+      return state;
     case 'EVENTS_GET':
-      validateEvents(payload);
       return payload;
+    case 'EVENT_REMOVE':
+      return state.filter(event => event._id !== payload._id);
     case 'TOKEN_REMOVE':
       return [];
     default:

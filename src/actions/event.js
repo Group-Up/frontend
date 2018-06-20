@@ -1,5 +1,6 @@
 import superagent from 'superagent';
 import * as routes from '../utils/routes';
+import { profileFetchRequest } from './profile';
 
 const getPrivateEvents = events => ({
   type: 'EVENTS_GET',
@@ -8,6 +9,11 @@ const getPrivateEvents = events => ({
 
 const setEvent = event => ({
   type: 'EVENT_SET',
+  payload: event,
+});
+
+const removeEvent = event => ({
+  type: 'EVENT_REMOVE',
   payload: event,
 });
 
@@ -32,4 +38,13 @@ const getPrivateEventsRequest = () => (store) => {
     });
 };
 
-export { eventCreateRequest, getPrivateEventsRequest };
+const removeEventRequest = event => (store) => {
+  const { token } = store.getState();
+  return superagent.del(`${API_URL}/events/${event._id}`)
+    .set('Authorization', `Bearer ${token}`)
+    .then(() => {
+      return store.dispatch(removeEvent(event));
+    });
+};
+
+export { eventCreateRequest, getPrivateEventsRequest, removeEventRequest };
