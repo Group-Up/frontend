@@ -7,6 +7,8 @@ import autobind from '../../utils/autobind';
 import AuthForm from '../auth-form/auth-form';
 import * as routes from '../../utils/routes';
 import { GOOGLE_LOGIN_REDIRECT, CREATE_ACCOUNT } from '../../utils/constants';
+import EventItem from '../event-item/event-item';
+import * as eventActions from '../../actions/event';
 
 class AuthLanding extends React.Component {
   constructor(props) {
@@ -14,11 +16,17 @@ class AuthLanding extends React.Component {
     autobind.call(this, AuthLanding);
   }
 
+  componentDidMount() {
+    if (!this.props.loggedIn) {
+      this.props.fetchPublicEvents()
+        .catch(console.error);
+    }
+  }
+
   handleLogin(user) {
     return this.props.doLogin(user)
       .then(() => {
         this.props.history.push(routes.DASHBOARD);
-        // this.props.fetchProfile();
       })
       .catch(console.error);
   }
@@ -34,7 +42,12 @@ class AuthLanding extends React.Component {
   render() {
     const landingJSX =
       <div>
-        <p>Landing page text</p>
+        <p>Recent events:</p>
+        {
+          this.props.events.length > 0 ?
+          this.props.events.map(event => <EventItem event={event} key={event._id}/>) :
+            <p>No events to display</p>
+        }
       </div>;
 
     const signupJSX =
@@ -72,11 +85,20 @@ AuthLanding.propTypes = {
   doSignup: PropTypes.func,
   history: PropTypes.object,
   location: PropTypes.object,
+  events: PropTypes.array,
+  loggedIn: PropTypes.bool,
+  fetchPublicEvents: PropTypes.func,
 };
+
+const mapStateToProps = state => ({
+  events: state.events,
+  loggedIn: !!state.token,
+});
 
 const mapDispatchToProps = dispatch => ({
   doSignup: user => dispatch(authActions.signupRequest(user)),
   doLogin: user => dispatch(authActions.loginRequest(user)),
+  fetchPublicEvents: () => dispatch(eventActions.getPublicEventsRequest()),
 });
 
-export default connect(null, mapDispatchToProps)(AuthLanding);
+export default connect(mapStateToProps, mapDispatchToProps)(AuthLanding);

@@ -9,6 +9,7 @@ import AuthLanding from '../auth-landing/auth-landing';
 import * as profileActions from '../../actions/profile';
 import Profile from '../profile/profile';
 import EventPage from '../event-page/event-page';
+import * as eventActions from '../../actions/event';
 
 class App extends React.Component {
   componentDidMount() {
@@ -16,7 +17,7 @@ class App extends React.Component {
       this.props.pFetchUserProfile()
         .catch(console.error);
     } else {
-      // this.props.pFetchPublicEvents();
+      this.props.pFetchPublicEvents();
     }
   }
 
@@ -43,6 +44,7 @@ class App extends React.Component {
 App.propTypes = {
   loggedIn: PropTypes.bool,
   pFetchUserProfile: PropTypes.func,
+  pFetchPublicEvents: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
@@ -51,6 +53,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   pFetchUserProfile: () => dispatch(profileActions.profileFetchRequest()),
+  pFetchPublicEvents: () => dispatch(eventActions.getPublicEventsRequest()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
