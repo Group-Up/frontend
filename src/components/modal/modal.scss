@@ -7,6 +7,7 @@
   width: 100%;
   height: 100%;
   background: $modal-color;
+  text-align: center;
 
   .modal-main {
     position: fixed;
@@ -16,24 +17,41 @@
     background: $modal-background;
     width: 400px;
     height: 200px;
+    padding: 10px;
+    border-radius: 10px;
   }
 
   .modal-main form {
+    text-align: left;
+    padding: 10px;
 
     input {
       width: 80%;
       display: block;
+      margin: 5px;
     }
     .checkbox {
-      width: 10%;
+      box-sizing: border-box;
+      width: 5%;
       display: inline-block;
+      transform: scale(1.5);
+      margin: 0 0 0 10px;
+      padding: 0;
+    }
+    label {
+      box-sizing: border-box;
+      display: inline-block;
+      font-weight: bold;
+      font-size: 24px;
+      vertical-align: bottom;
+      transform: translate(0, 25%);
     }
   }
 
   .modal-button {
     float: right;
-    width: 25px;
-    margin: 5px 5px;
+    margin: 5px;
+    padding: 5px 10px;
   }
 }
 

@@ -41,13 +41,6 @@ class EventForm extends React.Component {
     return (
       <div className='event-form'>
         <form onSubmit={this.handleSubmit} className='event-form'>
-          <label>Public</label>
-          <input
-            className='checkbox'
-            type='checkbox'
-            checked={this.state.isPublic}
-            onChange={this.handleToggle}
-          />
           <input
             type='text'
             name='title'
@@ -70,12 +63,20 @@ class EventForm extends React.Component {
             onChange={this.handleChange}
           />
           <input
+            className='public'
             type='text'
             name='location'
             placeholder='Event Location'
             value={this.state.location}
             onChange={this.handleChange}
           />
+          <input
+            className='checkbox'
+            type='checkbox'
+            checked={this.state.isPublic}
+            onChange={this.handleToggle}
+          />
+          <label>PUBLIC</label>
           <button type='submit'>{buttonText}</button>
         </form>
       </div>
