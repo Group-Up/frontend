@@ -5,3 +5,31 @@
 img {
   max-width: 250px;
 }
+
+.post-item {
+  list-style: none;
+  border: 1px solid black;
+}
+
+.announcement {
+  h3 {
+    font-size: 40px;
+    color: red;
+  }
+  p {
+    font-size: 10px;
+  }
+}
+
+.text {
+  h3 {
+    font-size: 20px;
+  }
+  p {
+    font-size: 15px;
+  }
+}
+
+.photo {
+  background: yellow;
+}

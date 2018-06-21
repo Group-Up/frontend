@@ -4,21 +4,34 @@ import { connect } from 'react-redux';
 import * as postActions from '../../actions/posts';
 import PostForm from '../post-form/post-form';
 import './post-item.scss';
+import Modal from '../modal/modal';
 
 class PostItem extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { editing: false };
+  }
   render() {
     const { post } = this.props;
     const show = this.props.show ? 'show' : 'hide';
+    const postClass = `post-item ${post.type}`;
     return (
-      <li className='post-item'>
+      <li className={postClass}>
         <h3>{ post.title }</h3>
-        <p>{ post.date }</p>
-        <p>{ post.location }</p>
+        <p>{ post.description }</p>
         <p>{ post.likes.length > 0 && post.likes.length }</p>
         <img src={post.imageUrl}/>
         <button onClick={() => this.props.deletePost(post)} className={show}> Delete </button>
         <div className={show}>
-          <PostForm onComplete={this.props.updatePost} post={post} type={post.type}/>
+          <button onClick={() => this.setState({ editing: true })}>Edit post</button>
+          <Modal handleClose={() => this.setState({ editing: false })} show={this.state.editing}>
+            <PostForm
+              onComplete={this.props.updatePost}
+              post={post}
+              type={post.type}
+              handleClose={() => this.setState({ editing: false })}
+            />
+          </Modal>
         </div>
       </li>
     );

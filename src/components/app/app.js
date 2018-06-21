@@ -10,6 +10,7 @@ import * as profileActions from '../../actions/profile';
 import Profile from '../profile/profile';
 import EventPage from '../event-page/event-page';
 import * as eventActions from '../../actions/event';
+import '../../style/main.scss';
 
 class App extends React.Component {
   componentDidMount() {

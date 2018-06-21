@@ -1,18 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import EventForm from '../event-form/event-form';
 import * as eventActions from '../../actions/event';
-import Profile from '../profile/profile';
-import EventItem from '../event-item/event-item';
 import * as profileActions from '../../actions/profile';
 import * as postActions from '../../actions/posts';
+import Profile from '../profile/profile';
+import EventForm from '../event-form/event-form';
+import EventItem from '../event-item/event-item';
 import PostItem from '../post-item/post-item';
+import Modal from '../modal/modal';
 import autobind from '../../utils/autobind';
 
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      eventForm: false,
+    };
     autobind.call(this, Dashboard);
   }
 
@@ -35,8 +39,10 @@ class Dashboard extends React.Component {
         <h1>Dashboard</h1>
         <h2>Welcome { username && username }</h2>
         <Profile profile={profile}/>
-        <EventForm onComplete={this.props.doCreateEvent}/>
-
+        <Modal show={this.state.eventForm} handleClose={() => this.setState({ eventForm: false })}>
+          <EventForm onComplete={this.props.doCreateEvent}/>
+        </Modal>
+        <button onClick={() => this.setState({ eventForm: true })}> CREATE EVENT</button>
         <h3>My Events:</h3>
         {
           events.length > 0 

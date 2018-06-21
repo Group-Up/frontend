@@ -1,20 +1,28 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import PostItem from '../post-item/post-item';
 import * as postActions from '../../actions/posts';
 import * as selectedEventActions from '../../actions/single-event';
-import PostForm from '../post-form/post-form';
-import EventForm from '../event-form/event-form';
 import * as eventActions from '../../actions/event';
 import * as profileActions from '../../actions/profile';
 import * as routes from '../../utils/routes';
+import PostItem from '../post-item/post-item';
+import PostForm from '../post-form/post-form';
+import EventForm from '../event-form/event-form';
+import Modal from '../modal/modal';
 import autobind from '../../utils/autobind';
 
 class EventPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { ...this.props.selectedEvent, authorized: 'loading' };
+    this.state = {
+      ...this.props.selectedEvent,
+      authorized: 'loading',
+      eventEdit: false,
+      addPhoto: false,
+      addText: false,
+      addAnnouncement: false,
+    };
     autobind.call(this, EventPage);
   }
 
@@ -28,6 +36,7 @@ class EventPage extends React.Component {
               const creator = this.props.profile._id === selectedEvent.payload.profile;
               const guest = selectedEvent.payload.guests.includes(this.props.profile._id);
               if (selectedEvent.payload.isPublic || (creator || guest)) {
+                this.props.fetchEventPosts(this.props.selectedEvent._id);
                 return this.setState({ authorized: true });
               }
               this.props.fetchEventPosts(this.props.selectedEvent._id);
@@ -45,30 +54,56 @@ class EventPage extends React.Component {
 
   render() {
     const { selectedEvent, posts } = this.props;
+    const sortedPosts = posts.sort((a, b) => {
+      return new Date(b.timestamp) - new Date(a.timestamp);
+    });
+    console.log(sortedPosts);
     const memberJSX =
       <div>
         <h1>{ selectedEvent.title }</h1>
-        <h3>{ selectedEvent.date }</h3>
-        <h3>{ selectedEvent.location }</h3>
+        <p>Date: { selectedEvent.eventDate }</p>
+        <p>Location: { selectedEvent.location }</p>
         <p>{ selectedEvent.description }</p>
         { (selectedEvent && selectedEvent.title) &&
-        <EventForm event={selectedEvent} onComplete={this.props.updateEvent}/> }
+        <Modal show={this.state.eventEdit} handleClose={() => this.setState({ eventEdit: false })}>
+          <EventForm event={selectedEvent} onComplete={this.props.updateEvent}/>
+        </Modal> }
+        <button onClick={() => this.setState({ eventEdit: true })}>Edit Details</button>
         <button onClick={this.handleClick}>
           DELETE EVENT
         </button>
+        <button onClick={() => this.setState({ addPhoto: true })}>Upload photo</button>
+        <Modal show={this.state.addPhoto} handleClose={() => this.setState({ addPhoto: false })}>
+          <PostForm
+            type='photo'
+            onComplete={this.props.createPostRequest}
+            handleClose={() => this.setState({ addPhoto: false })}/>
+        </Modal>
 
+        <button onClick={() => this.setState({ addText: true })}>Make text post</button>
+        <Modal show={this.state.addText} handleClose={() => this.setState({ addText: false })}>
+          <PostForm
+            type='text'
+            onComplete={this.props.createPostRequest}
+            handleClose={() => this.setState({ addText: false })}
+          />
+        </Modal>
+
+        <button onClick={() => this.setState({ addAnnouncement: true })}>Add announcement</button>
+        <Modal
+          show={this.state.addAnnouncement}
+          handleClose={() => this.setState({ addAnnouncement: false })}>
+          <PostForm
+            type='announcement'
+            onComplete={this.props.createPostRequest}
+            handleClose={() => this.setState({ addAnnouncement: false })}
+          />
+        </Modal>
         {
-          posts.length > 0 ? posts.map(post => <PostItem post={post} key={post._id} show={true}/>) :
+          posts.length > 0 ?
+            sortedPosts.map(post => <PostItem post={post} key={post._id} show={true}/>) :
             <p>No posts to display</p>
         }
-        <h4>Upload photo</h4>
-        <PostForm type='photo' onComplete={this.props.createPostRequest}/>
-
-        <h4>Make text post</h4>
-        <PostForm type='text' onComplete={this.props.createPostRequest}/>
-
-        <h4>Add announcement</h4>
-        <PostForm type='announcement' onComplete={this.props.createPostRequest}/>
       </div>;
 
     const unauthorizedJSX =
