@@ -40,12 +40,12 @@ class EventForm extends React.Component {
     return (
       <div className='event-form'>
         <form onSubmit={this.handleSubmit} className='event-form'>
-          <label>Public</label>
-          <input
+          <input className='public-box'
             type='checkbox'
             checked={this.state.isPublic}
             onChange={this.handleToggle}
-          />
+            />
+          <label>Public</label>
           <input
             type='text'
             name='title'
