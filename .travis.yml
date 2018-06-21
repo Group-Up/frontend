@@ -3,3 +3,6 @@ node_js:
 - "node"
 services:
 - "mongodb"
+env:
+  global:
+    - API_URL=http://localhost:3000
