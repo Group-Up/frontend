@@ -4,7 +4,7 @@ header {
   margin: 0;
   padding: 0;
   height: 60px;
-  background: $dark-tangerine;
+  background: $main-accent-dark;
 
   nav {
     margin: 0;
@@ -32,7 +32,7 @@ header {
     vertical-align: middle;
   }
   li:hover {
-    background-color: $tangerine;
+    background-color: $main-accent;
   }
   ul {
     float: right;

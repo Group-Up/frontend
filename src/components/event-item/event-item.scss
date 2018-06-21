@@ -2,11 +2,12 @@
 
 .event-item {
   box-sizing: border-box;
-  border: 5px solid $aluminum;
+  border: 5px solid $light-accent;
   border-radius: 10px;
   padding: 20px;
+  background-color: white;
 }
 
 .event-item:hover {
-  border: 5px solid $light;
+  border: 5px solid $main-accent-dark;
 }

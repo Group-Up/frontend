@@ -6,6 +6,7 @@ import * as profileActions from '../../actions/profile';
 import * as imageActions from '../../actions/image';
 import autoBind from '../../utils/autobind';
 import ProfileForm from '../profile-form/profile-form';
+import './profile.scss';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -50,12 +51,13 @@ class Profile extends React.Component {
       JSXProfile =
         <div>
           <img src={profile.profileImage}/>
+          <h2>{profile.username}</h2>
           <p>{profile.bio}</p>
           {this.state.editing ? JSXEditing : JSXDisplay}
         </div>;
     }
     return (
-      <div>
+      <div className='profile'>
         {profile ? JSXProfile : <ProfileForm onComplete={this.handleCreate} />}
       </div>
     );

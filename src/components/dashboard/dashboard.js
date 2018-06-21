@@ -10,6 +10,7 @@ import EventItem from '../event-item/event-item';
 import PostItem from '../post-item/post-item';
 import Modal from '../modal/modal';
 import autobind from '../../utils/autobind';
+import { EMAIL_BODY, EMAIL_SUBJECT } from '../../utils/constants';
 import './dashboard.scss';
 
 class Dashboard extends React.Component {
@@ -34,7 +35,6 @@ class Dashboard extends React.Component {
 
   render() {
     const { profile, posts, events } = this.props;
-    const username = profile && profile.username;
     const sortedPosts = posts.sort((a, b) => {
       return new Date(b.timestamp) - new Date(a.timestamp);
     });
@@ -43,18 +43,35 @@ class Dashboard extends React.Component {
     });
     return (
       <div className='dashboard'>
+        <div className='dashboard-left'>
+          <Profile profile={profile}/>
+          <div className='contacts'>
+            <h3>Contacts</h3>
+            <ul>
+              { profile &&
+              profile.friends.map((friend, i) =>
+                <li key={i}>
+                  <p>{ friend.name }</p>
+                  <a
+                    href={`mailto:${friend.email}?subject=${EMAIL_SUBJECT}&body=${EMAIL_BODY}`}>
+                    <p>{ friend.email }</p>
+                  </a>
+                </li>)
+              }
+            </ul>
+          </div>
+        </div>
         <div className='dashboard-main'>
           <h1>Dashboard</h1>
-          <h2>Welcome { username && username }</h2>
-          <Profile profile={profile}/>
           <Modal
             show={this.state.eventForm}
             handleClose={() => this.setState({ eventForm: false })}>
             <EventForm onComplete={this.props.doCreateEvent}/>
           </Modal>
-          <button
-            className='event-button'
-            onClick={() => this.setState({ eventForm: true })}> CREATE EVENT</button>
+          <div className='event-button'>
+            <button
+              onClick={() => this.setState({ eventForm: true })}> CREATE EVENT</button>
+          </div>
           <h3>My Events:</h3>
           <div className='events'>
             {
@@ -74,17 +91,8 @@ class Dashboard extends React.Component {
             }
           </div>
         </div>
-        <div className='contacts'>
-          <h3>Contacts</h3>
-          <ul>
-            { profile &&
-              profile.friends.map((friend, i) =>
-              <li key={i}>
-              <p>{ friend.name }</p>
-              <p>{ friend.email }</p>
-            </li>)
-            }
-          </ul>
+        <div className='dashboard-right'>
+          <h3>public events here</h3>
         </div>
       </div>
     );
