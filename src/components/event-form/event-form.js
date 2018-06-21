@@ -7,7 +7,7 @@ const defaultState = {
   description: '',
   eventDate: '',
   location: '',
-  isPublic: false,
+  isPublic: true,
 };
 
 class EventForm extends React.Component {
