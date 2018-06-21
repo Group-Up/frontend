@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import autoBind from '../../utils/autobind';
+import './event-form.scss';
 
 const defaultState = {
   title: '',
@@ -42,6 +43,7 @@ class EventForm extends React.Component {
         <form onSubmit={this.handleSubmit} className='event-form'>
           <label>Public</label>
           <input
+            className='checkbox'
             type='checkbox'
             checked={this.state.isPublic}
             onChange={this.handleToggle}
