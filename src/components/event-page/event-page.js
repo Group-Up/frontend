@@ -7,22 +7,34 @@ import * as selectedEventActions from '../../actions/single-event';
 import PostForm from '../post-form/post-form';
 import EventForm from '../event-form/event-form';
 import * as eventActions from '../../actions/event';
+import * as profileActions from '../../actions/profile';
 import * as routes from '../../utils/routes';
 import autobind from '../../utils/autobind';
 
 class EventPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = this.props.selectedEvent;
+    this.state = { ...this.props.selectedEvent, authorized: 'loading' };
     autobind.call(this, EventPage);
   }
 
   componentDidMount() {
-    const id = this.props.location.pathname.split('/')[2];
-    this.props.fetchSelectedEvent(id)
-      .then(() => {
-        this.props.fetchEventPosts(this.props.selectedEvent._id);
-      });
+    if (this.props.loggedIn) {
+      const id = this.props.location.pathname.split('/')[2];
+      this.props.fetchProfile()
+        .then(() => {
+          this.props.fetchSelectedEvent(id)
+            .then((selectedEvent) => {
+              const creator = this.props.profile._id === selectedEvent.payload.profile;
+              const guest = selectedEvent.payload.guests.includes(this.props.profile._id);
+              if (selectedEvent.payload.isPublic || (creator || guest)) {
+                return this.setState({ authorized: true });
+              }
+              this.props.fetchEventPosts(this.props.selectedEvent._id);
+              return this.setState({ authorized: false });
+            });
+        });
+    }
   }
 
   handleClick(event) {
@@ -33,14 +45,14 @@ class EventPage extends React.Component {
 
   render() {
     const { selectedEvent, posts } = this.props;
-    return (
+    const memberJSX =
       <div>
         <h1>{ selectedEvent.title }</h1>
         <h3>{ selectedEvent.date }</h3>
         <h3>{ selectedEvent.location }</h3>
         <p>{ selectedEvent.description }</p>
         { (selectedEvent && selectedEvent.title) &&
-          <EventForm event={selectedEvent} onComplete={this.props.updateEvent}/> }
+        <EventForm event={selectedEvent} onComplete={this.props.updateEvent}/> }
         <button onClick={this.handleClick}>
           DELETE EVENT
         </button>
@@ -57,6 +69,21 @@ class EventPage extends React.Component {
 
         <h4>Add announcement</h4>
         <PostForm type='announcement' onComplete={this.props.createPostRequest}/>
+      </div>;
+
+    const unauthorizedJSX =
+      <div>
+        <h2>YOU DO NOT HAVE ACCESS TO THIS EVENT</h2>
+      </div>;
+
+    const loadingJSX =
+      <div>Loading...</div>
+
+    return (
+      <div>
+        { !this.state.authorized && unauthorizedJSX }
+        { this.state.authorized === true && memberJSX }
+        { this.state.authorized === 'loading' && loadingJSX }
       </div>
     );
   }
@@ -72,11 +99,16 @@ EventPage.propTypes = {
   location: PropTypes.object,
   history: PropTypes.object,
   updateEvent: PropTypes.func,
+  loggedIn: PropTypes.bool,
+  profile: PropTypes.object,
+  fetchProfile: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
   posts: state.posts,
   selectedEvent: state.selectedEvent,
+  loggedIn: !!state.token,
+  profile: state.profile,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -85,6 +117,7 @@ const mapDispatchToProps = dispatch => ({
   createPostRequest: (post, id) => dispatch(postActions.createPostRequest(post, id)),
   deleteEvent: event => dispatch(eventActions.removeEventRequest(event)),
   updateEvent: event => dispatch(eventActions.updateEventRequest(event)),
+  fetchProfile: () => dispatch(profileActions.profileFetchRequest()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EventPage);

@@ -51,6 +51,18 @@ class Dashboard extends React.Component {
             posts.map(post => <PostItem post={post} show={false} key={post._id}/>) :
             <p>No posts to display</p>
         }
+        <div>
+          <h3>Contacts</h3>
+          <ul>
+            { profile &&
+              profile.friends.map((friend, i) =>
+              <li key={i}>
+              <p>{ friend.name }</p>
+              <p>{ friend.email }</p>
+            </li>)
+            }
+          </ul>
+        </div>
       </div>
     );
   }
