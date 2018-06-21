@@ -57,7 +57,6 @@ class EventPage extends React.Component {
     const sortedPosts = posts.sort((a, b) => {
       return new Date(b.timestamp) - new Date(a.timestamp);
     });
-    console.log(sortedPosts);
     const memberJSX =
       <div>
         <h1>{ selectedEvent.title }</h1>

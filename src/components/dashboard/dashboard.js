@@ -34,6 +34,12 @@ class Dashboard extends React.Component {
   render() {
     const { profile, posts, events } = this.props;
     const username = profile && profile.username;
+    const sortedPosts = posts.sort((a, b) => {
+      return new Date(b.timestamp) - new Date(a.timestamp);
+    });
+    const sortedEvents = events.sort((a, b) => {
+      return new Date(b.eventDate) - new Date(a.eventDate);
+    });
     return (
       <div className='dashboard'>
         <h1>Dashboard</h1>
@@ -47,14 +53,14 @@ class Dashboard extends React.Component {
         {
           events.length > 0 
            ? 
-           events.map(event => <EventItem event={event} key={event._id}/>)
+           sortedEvents.map(event => <EventItem event={event} key={event._id}/>)
            :
           <p> No events to display </p>
         }
         <h3>Recent Posts:</h3>
         {
           posts.length > 0 ?
-            posts.map(post => <PostItem post={post} show={false} key={post._id}/>) :
+            sortedPosts.map(post => <PostItem post={post} show={false} key={post._id}/>) :
             <p>No posts to display</p>
         }
         <div>

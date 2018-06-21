@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import * as authActions from '../../actions/auth';
-import autobind from '../../utils/autobind';
-import AuthForm from '../auth-form/auth-form';
 import * as routes from '../../utils/routes';
-import { GOOGLE_LOGIN_REDIRECT, CREATE_ACCOUNT } from '../../utils/constants';
-import EventItem from '../event-item/event-item';
+import * as authActions from '../../actions/auth';
 import * as eventActions from '../../actions/event';
+import AuthForm from '../auth-form/auth-form';
+import EventItem from '../event-item/event-item';
+import { GOOGLE_LOGIN_REDIRECT, CREATE_ACCOUNT } from '../../utils/constants';
+import autobind from '../../utils/autobind';
 
 class AuthLanding extends React.Component {
   constructor(props) {
