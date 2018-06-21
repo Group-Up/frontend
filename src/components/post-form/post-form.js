@@ -10,8 +10,6 @@ const defaultState = {
   titleDirty: false,
   titleError: '',
   description: '',
-  descriptionDirty: false,
-  descriptionError: '',
 };
 
 class PostForm extends React.Component {
@@ -29,15 +27,18 @@ class PostForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     const id = this.props.selectedEvent._id;
-    if (!this.state.titleError && !this.state.descriptionError) {
+    if (!this.state.titleError) {
       if (this.props.type === 'announcement') {
         this.props.onComplete({ ...this.state, isAnnouncement: true, type: this.props.type }, id);
         this.setState(defaultState);
+        this.props.handleClose();
       } else if (this.props.type === 'photo') {
         this.props.onComplete({ ...this.state, imageUrl: '' });
+        this.props.handleClose();
       } else {
         this.props.onComplete({ ...this.state, type: this.props.type }, id);
         this.setState(defaultState);
+        this.props.handleClose();
       }
     } else {
       this.setState({
@@ -59,33 +60,30 @@ class PostForm extends React.Component {
   render() {
     const { type } = this.props;
     const buttonText = this.props.post ? 'Update' : 'Add';
-    const nonImagePostJSX = <form onSubmit={this.handleSubmit}>
-    <input
-      type='text'
-      name='title'
-      placeholder='Title'
-      onChange={this.handleChange}
-      onBlur={() => this.handleValidation('title', this.state.title)}
-      value={this.state.title}
-    />
-    {this.state.titleDirty && <p>{ this.state.titleError }</p>}
-    <textarea
-        placeholder='enter text here'
-        name='description'
-        onChange={this.handleChange}
-        onBlur={() => this.handleValidation('description', this.state.description)}
-        value={this.state.description}
-      />;
-    {this.state.descriptionDirty && <p>{ this.state.descriptionError }</p>}
-    <button type='submit'> {buttonText} </button>
-  </form>;
+    const nonImagePostJSX =
+      <form onSubmit={this.handleSubmit}>
+        <input
+          type='text'
+          name='title'
+          placeholder='Title'
+          onChange={this.handleChange}
+          onBlur={() => this.handleValidation('title', this.state.title)}
+          value={this.state.title}
+        />
+        {this.state.titleDirty && <p>{ this.state.titleError }</p>}
+        <textarea
+            placeholder='enter text here'
+            name='description'
+            onChange={this.handleChange}
+            value={this.state.description}
+          />
+        <button type='submit'> {buttonText} </button>
+      </form>;
     return (
       <div>
-        { type === 'photo' 
-        ? 
+        { type === 'photo' ?
         <ImageForm event={this.props.selectedEvent} onComplete={this.props.pPostImageRequest}/> 
-        : 
-        nonImagePostJSX }
+        : nonImagePostJSX }
       </div>
     );
   }
@@ -97,6 +95,7 @@ PostForm.propTypes = {
   onComplete: PropTypes.func,
   selectedEvent: PropTypes.object,
   pPostImageRequest: PropTypes.func,
+  handleClose: PropTypes.func,
 };
 
 const mapStatetoProps = state => ({

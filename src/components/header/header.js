@@ -2,8 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import * as routes from '../../utils/routes';
 import { logout } from '../../actions/auth';
+import * as routes from '../../utils/routes';
+import './header.scss';
+import logo from '../../assets/GroupUpLogo.png';
 
 class Header extends React.Component {
   render() {
@@ -23,9 +25,12 @@ class Header extends React.Component {
     return (
       <header className='header'>
         <nav>
+          <Link to={routes.LANDING}>
+            <img src={logo} alt='group up'/>
+            <h1>GroupUp</h1>
+          </Link>
           { this.props.loggedIn ? loggedInJSX : guestJSX }
         </nav>
-        <h1>GroupUp</h1>
       </header>
     );
   }

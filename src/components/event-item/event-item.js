@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import * as routes from '../../utils/routes';
+import './event-item.scss';
 
 class EventItem extends React.Component {
   render() {
