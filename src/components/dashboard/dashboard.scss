@@ -1,0 +1,46 @@
+@import '../../style/vars';
+
+.dashboard {
+  box-sizing: border-box;
+  padding: 10px;
+}
+
+.dashboard-main {
+  width: 70%;
+  display: inline-block;
+}
+
+.event-button {
+  width: 80%;
+  height: 50px;
+  margin: 10px auto;
+}
+
+.contacts {
+  width: 30%;
+  display: inline-block;
+  vertical-align: top;
+  overflow-wrap: break-spaces;
+
+  li {
+    list-style: none;
+    padding: 10px;
+  }
+  li:hover {
+    background-color: $cerulean;
+    color: white;
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+  p {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.posts {
+  display: flex;
+  flex-wrap: wrap;
+}

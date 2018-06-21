@@ -1,3 +1,5 @@
+@import '../../style/vars';
+
 .hide {
   display: none;
 }
@@ -8,16 +10,24 @@ img {
 
 .post-item {
   list-style: none;
-  border: 1px solid black;
+  border: 5px solid $aluminum;
+  box-sizing: border-box;
+  border-radius: 10px;
+  margin: 5px;
+  padding: 10px 30px;
+}
+
+.post-item:hover {
+  border: 5px solid $light;
 }
 
 .announcement {
   h3 {
-    font-size: 40px;
-    color: red;
+    font-size: 30px;
+    color: $tangerine;
   }
   p {
-    font-size: 10px;
+    font-size: 20px;
   }
 }
 

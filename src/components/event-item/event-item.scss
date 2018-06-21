@@ -1,0 +1,12 @@
+@import '../../style/vars';
+
+.event-item {
+  box-sizing: border-box;
+  border: 5px solid $aluminum;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.event-item:hover {
+  border: 5px solid $light;
+}

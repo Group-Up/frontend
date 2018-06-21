@@ -10,6 +10,7 @@ import EventItem from '../event-item/event-item';
 import PostItem from '../post-item/post-item';
 import Modal from '../modal/modal';
 import autobind from '../../utils/autobind';
+import './dashboard.scss';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -42,28 +43,38 @@ class Dashboard extends React.Component {
     });
     return (
       <div className='dashboard'>
-        <h1>Dashboard</h1>
-        <h2>Welcome { username && username }</h2>
-        <Profile profile={profile}/>
-        <Modal show={this.state.eventForm} handleClose={() => this.setState({ eventForm: false })}>
-          <EventForm onComplete={this.props.doCreateEvent}/>
-        </Modal>
-        <button onClick={() => this.setState({ eventForm: true })}> CREATE EVENT</button>
-        <h3>My Events:</h3>
-        {
-          events.length > 0 
-           ? 
-           sortedEvents.map(event => <EventItem event={event} key={event._id}/>)
-           :
-          <p> No events to display </p>
-        }
-        <h3>Recent Posts:</h3>
-        {
-          posts.length > 0 ?
-            sortedPosts.map(post => <PostItem post={post} show={false} key={post._id}/>) :
-            <p>No posts to display</p>
-        }
-        <div>
+        <div className='dashboard-main'>
+          <h1>Dashboard</h1>
+          <h2>Welcome { username && username }</h2>
+          <Profile profile={profile}/>
+          <Modal
+            show={this.state.eventForm}
+            handleClose={() => this.setState({ eventForm: false })}>
+            <EventForm onComplete={this.props.doCreateEvent}/>
+          </Modal>
+          <button
+            className='event-button'
+            onClick={() => this.setState({ eventForm: true })}> CREATE EVENT</button>
+          <h3>My Events:</h3>
+          <div className='events'>
+            {
+              events.length > 0
+                ?
+                sortedEvents.map(event => <EventItem event={event} key={event._id}/>)
+                :
+                <p> No events to display </p>
+            }
+          </div>
+          <h3>Recent Posts:</h3>
+          <div className='posts'>
+            {
+              posts.length > 0 ?
+                sortedPosts.map(post => <PostItem post={post} show={false} key={post._id}/>) :
+                <p>No posts to display</p>
+            }
+          </div>
+        </div>
+        <div className='contacts'>
           <h3>Contacts</h3>
           <ul>
             { profile &&

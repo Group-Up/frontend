@@ -6,7 +6,6 @@ const defaultState = {
   title: '',
   description: '',
   eventDate: '',
-  // imageUrl: '',
   location: '',
   isPublic: false,
 };

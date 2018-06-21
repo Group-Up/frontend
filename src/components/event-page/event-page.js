@@ -98,11 +98,13 @@ class EventPage extends React.Component {
             handleClose={() => this.setState({ addAnnouncement: false })}
           />
         </Modal>
-        {
-          posts.length > 0 ?
-            sortedPosts.map(post => <PostItem post={post} key={post._id} show={true}/>) :
-            <p>No posts to display</p>
-        }
+        <div className='posts'>
+          {
+            posts.length > 0 ?
+              sortedPosts.map(post => <PostItem post={post} key={post._id} show={true}/>) :
+              <p>No posts to display</p>
+          }
+        </div>
       </div>;
 
     const unauthorizedJSX =
@@ -111,7 +113,7 @@ class EventPage extends React.Component {
       </div>;
 
     const loadingJSX =
-      <div>Loading...</div>
+      <div>Loading...</div>;
 
     return (
       <div>
