@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { BrowserRouter, Route } from 'react-router-dom';
 import Header from '../header/header';
+import Footer from '../footer/footer';
 import Dashboard from '../dashboard/dashboard';
 import AuthRedirect from '../auth-redirect/auth-redirect';
 import AuthLanding from '../auth-landing/auth-landing';
@@ -10,6 +11,7 @@ import * as profileActions from '../../actions/profile';
 import Profile from '../profile/profile';
 import EventPage from '../event-page/event-page';
 import * as eventActions from '../../actions/event';
+import '../../style/main.scss';
 
 class App extends React.Component {
   componentDidMount() {
@@ -34,6 +36,7 @@ class App extends React.Component {
             <Route exact path='/profile/create' component={Profile}/>
             <Route exact path='/dashboard' component={Dashboard}/>
             <Route path='/events' component={EventPage}/>
+            <Footer/>
           </div>
         </BrowserRouter>
       </div>

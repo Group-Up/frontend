@@ -1,0 +1,13 @@
+@import 'normalize';
+@import 'vars';
+@import 'base';
+
+html, body, div {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  background-color: white;
+}

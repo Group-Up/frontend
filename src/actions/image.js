@@ -17,4 +17,4 @@ const createRequest = (image, event) => (store) => {
     });
 };
 
-export { create, createRequest };
+export { createRequest };

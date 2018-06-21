@@ -49,7 +49,7 @@ class ProfileForm extends React.Component {
           onBlur={() => this.handleValidation('bio', this.state.bio)}
         />
         {this.state.bioDirty && <p>{this.state.bioError}</p>}
-        <button type='submit'>{this.props.profile ? 'update' : 'create'} profile </button>
+        <button type='submit'>{this.props.profile ? 'Update' : 'Create'} Profile </button>
       </form>
     );
   }

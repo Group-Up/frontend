@@ -1,0 +1,41 @@
+@import '../../style/vars';
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: $modal-color;
+
+  .modal-main {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: $modal-background;
+    width: 400px;
+    height: 200px;
+  }
+
+  .modal-main form {
+
+    input {
+      width: 80%;
+      display: block;
+    }
+  }
+
+  .modal-button {
+    float: right;
+    width: 25px;
+    margin: 5px 5px;
+  }
+}
+
+.display-block {
+  display: block;
+}
+.display-none {
+  display: none;
+}
