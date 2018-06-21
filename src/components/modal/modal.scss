@@ -22,15 +22,29 @@
   }
 
   .modal-main form {
+    text-align: left;
+    padding: 10px;
 
     input {
       width: 80%;
       display: block;
       margin: 5px;
     }
-    .public-box {
+    .checkbox {
+      box-sizing: border-box;
+      width: 5%;
       display: inline-block;
-      width: 10%;
+      transform: scale(1.5);
+      margin: 0 0 0 10px;
+      padding: 0;
+    }
+    label {
+      box-sizing: border-box;
+      display: inline-block;
+      font-weight: bold;
+      font-size: 24px;
+      vertical-align: bottom;
+      transform: translate(0, 25%);
     }
   }
 

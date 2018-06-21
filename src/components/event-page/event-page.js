@@ -11,6 +11,7 @@ import PostForm from '../post-form/post-form';
 import EventForm from '../event-form/event-form';
 import Modal from '../modal/modal';
 import autobind from '../../utils/autobind';
+import './event-page.scss';
 
 class EventPage extends React.Component {
   constructor(props) {
@@ -58,52 +59,63 @@ class EventPage extends React.Component {
       return new Date(b.timestamp) - new Date(a.timestamp);
     });
     const memberJSX =
-      <div>
-        <h1>{ selectedEvent.title }</h1>
-        <p>Date: { selectedEvent.eventDate }</p>
-        <p>Location: { selectedEvent.location }</p>
-        <p>{ selectedEvent.description }</p>
-        { (selectedEvent && selectedEvent.title) &&
-        <Modal show={this.state.eventEdit} handleClose={() => this.setState({ eventEdit: false })}>
-          <EventForm event={selectedEvent} onComplete={this.props.updateEvent}/>
-        </Modal> }
-        <button onClick={() => this.setState({ eventEdit: true })}>Edit Details</button>
-        <button onClick={this.handleClick}>
-          DELETE EVENT
-        </button>
-        <button onClick={() => this.setState({ addPhoto: true })}>Upload photo</button>
-        <Modal show={this.state.addPhoto} handleClose={() => this.setState({ addPhoto: false })}>
-          <PostForm
-            type='photo'
-            onComplete={this.props.createPostRequest}
-            handleClose={() => this.setState({ addPhoto: false })}/>
-        </Modal>
+      <div className='event-page'>
+        <div className='event-page-left'>
+          <p>contacts here</p>
+        </div>
 
-        <button onClick={() => this.setState({ addText: true })}>Make text post</button>
-        <Modal show={this.state.addText} handleClose={() => this.setState({ addText: false })}>
-          <PostForm
-            type='text'
-            onComplete={this.props.createPostRequest}
-            handleClose={() => this.setState({ addText: false })}
-          />
-        </Modal>
+        <div className='event-page-main'>
+          <h1>{ selectedEvent.title }</h1>
+          <p>Date: { selectedEvent.eventDate }</p>
+          <p>Location: { selectedEvent.location }</p>
+          <p>{ selectedEvent.description }</p>
+          { (selectedEvent && selectedEvent.title) &&
+          <Modal
+            show={this.state.eventEdit}
+            handleClose={() => this.setState({ eventEdit: false })}>
+            <EventForm event={selectedEvent} onComplete={this.props.updateEvent}/>
+          </Modal> }
+          <button onClick={() => this.setState({ eventEdit: true })}>Edit Details</button>
+          <button className='delete' onClick={this.handleClick}>
+            DELETE EVENT
+          </button>
+          <button onClick={() => this.setState({ addPhoto: true })}>Upload photo</button>
+          <Modal show={this.state.addPhoto} handleClose={() => this.setState({ addPhoto: false })}>
+            <PostForm
+              type='photo'
+              onComplete={this.props.createPostRequest}
+              handleClose={() => this.setState({ addPhoto: false })}/>
+          </Modal>
 
-        <button onClick={() => this.setState({ addAnnouncement: true })}>Add announcement</button>
-        <Modal
-          show={this.state.addAnnouncement}
-          handleClose={() => this.setState({ addAnnouncement: false })}>
-          <PostForm
-            type='announcement'
-            onComplete={this.props.createPostRequest}
-            handleClose={() => this.setState({ addAnnouncement: false })}
-          />
-        </Modal>
-        <div className='posts'>
-          {
-            posts.length > 0 ?
-              sortedPosts.map(post => <PostItem post={post} key={post._id} show={true}/>) :
-              <p>No posts to display</p>
-          }
+          <button onClick={() => this.setState({ addText: true })}>Make text post</button>
+          <Modal show={this.state.addText} handleClose={() => this.setState({ addText: false })}>
+            <PostForm
+              type='text'
+              onComplete={this.props.createPostRequest}
+              handleClose={() => this.setState({ addText: false })}
+            />
+          </Modal>
+
+          <button onClick={() => this.setState({ addAnnouncement: true })}>Add announcement</button>
+          <Modal
+            show={this.state.addAnnouncement}
+            handleClose={() => this.setState({ addAnnouncement: false })}>
+            <PostForm
+              type='announcement'
+              onComplete={this.props.createPostRequest}
+              handleClose={() => this.setState({ addAnnouncement: false })}
+            />
+          </Modal>
+          <div className='posts'>
+            {
+              posts.length > 0 ?
+                sortedPosts.map(post => <PostItem post={post} key={post._id} show={true}/>) :
+                <p>No posts to display</p>
+            }
+          </div>
+        </div>
+        <div className='event-page-right'>
+          <p>something else here</p>
         </div>
       </div>;
 

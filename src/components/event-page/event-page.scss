@@ -1,0 +1,36 @@
+@import '../../style/vars';
+
+.event-page {
+  box-sizing: border-box;
+}
+
+.event-page-left {
+  width: 20%;
+  box-sizing: border-box;
+  display: inline-block;
+  vertical-align: top;
+  padding: 10px;
+}
+
+.event-page-right {
+  width: 20%;
+  display: inline-block;
+  box-sizing: border-box;
+  vertical-align: top;
+  padding: 10px;
+}
+
+.event-page-main {
+  box-sizing: border-box;
+  display: inline-block;
+  width: 60%;
+  height: 100%;
+  background-color: $light-background;
+  border-left: 3px solid $light-accent;
+  border-right: 3px solid $light-accent;
+  padding: 10px;
+}
+
+.delete {
+  background-color: $main-accent;
+}

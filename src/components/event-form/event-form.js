@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import autoBind from '../../utils/autobind';
+import './event-form.scss';
 
 const defaultState = {
   title: '',
@@ -40,12 +41,6 @@ class EventForm extends React.Component {
     return (
       <div className='event-form'>
         <form onSubmit={this.handleSubmit} className='event-form'>
-          <input className='public-box'
-            type='checkbox'
-            checked={this.state.isPublic}
-            onChange={this.handleToggle}
-            />
-          <label>Public</label>
           <input
             type='text'
             name='title'
@@ -68,12 +63,20 @@ class EventForm extends React.Component {
             onChange={this.handleChange}
           />
           <input
+            className='public'
             type='text'
             name='location'
             placeholder='Event Location'
             value={this.state.location}
             onChange={this.handleChange}
           />
+          <input
+            className='checkbox'
+            type='checkbox'
+            checked={this.state.isPublic}
+            onChange={this.handleToggle}
+          />
+          <label>PUBLIC</label>
           <button type='submit'>{buttonText}</button>
         </form>
       </div>
