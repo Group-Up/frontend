@@ -92,7 +92,12 @@ class Dashboard extends React.Component {
           </div>
         </div>
         <div className='dashboard-right'>
-          <h3>public events here</h3>
+          <h3>Public Events</h3>
+          {
+          this.props.events.length > 0 ?
+          this.props.events.map(event => <EventItem event={event} key={event._id}/>) :
+            <p>No events to display</p>
+        }
         </div>
       </div>
     );

@@ -71,7 +71,7 @@ class PostForm extends React.Component {
           value={this.state.title}
         />
         {this.state.titleDirty && <p>{ this.state.titleError }</p>}
-        <textarea
+          <textarea
             placeholder='enter text here'
             name='description'
             onChange={this.handleChange}
