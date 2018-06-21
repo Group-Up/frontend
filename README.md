@@ -5,7 +5,7 @@
 [![David](https://img.shields.io/david/expressjs/express.svg)](https://github.com/groupUp/groupUp)
 [![Packagist](https://img.shields.io/packagist/l/doctrine/orm.svg)](https://github.com/groupUp/groupUp)
 
-![groupUp](src/assets/logo.png)
+![groupUp](src/assets/GroupUpLogo.png)
 
 **Author**: Zachary Schumpert, Sarah Geyer, Carl Olson, Mario Flores Jr.
 
@@ -37,11 +37,11 @@ To start the db and test the routes, from the command line, enter:
 
 ```npm run dboff``` This turns off MongoDB
 
-## Components  // Zachary - do we want to include the file extension of each one? ex: app.js vs app.
-```App.js```
+## Components
+```App```
 - Renders all routes to the client.
 
-```auth-form.js```
+```AuthForm```
 - Handles the login authorization for our users.  This is where username, email and password are checked for proper validation.   
 
 **handleValidation** - Validates the username, email and password.  Validation is dependent on length and one special character, number or uppercase letter.
@@ -50,49 +50,47 @@ To start the db and test the routes, from the command line, enter:
 
 **handleSubmit** - Submits the username, email and password to the auth-landing component.
 
-```auth-landing.js```
+```AuthLanding```
 - This is the landing page for our application and enables the user to: signup/create an account and either login to an account created from within our GroupUp web application or login with a Google account.
 
 **handleSignup** - Signup/create an account.
 
 **handleLogin** - Login via an account created from within GroupUp or login via a Google account. 
 
-```auth-redirect.js```
+```AuthRedirect```
 - Directs a user to the appropriate route/page, depending on the user’s authorization. 
 
- ```dashboard.js```
+ ```Dashboard```
 - Displays both public and private events the user has created and is a member of.  Recently created user posts are also displayed via this component, as well as displaying the user’s available Google contacts.  
 
-```event-form.js```
+```EventForm```
 - Allows the user to create an event and toggle if they’d like the event to be public(available for any additional users to join) or private(additional users are able to join via invite only).
 
 **handleChange** - Allows the user to input text in the appropriate field(s), changing the state depending on user input.
 
-**handleSubmit** - Submits the state of the newly created event (Event Title, Event Description, Date of the event and Event location) to the event-page component 
- // Zachary - is it really “newly created” I’m unsure if the event has truly been created at this point and this is merely “submitting the state of the event."
+**handleSubmit** - Submits the state to create the event (Event Title, Event Description, Date of the event and Event location) to the event-page component 
 
 **handleToggle** - Sets the state of the event to allow either Public or Private access.
 
-```event-item.js```
+```EventItem```
 - This component represents the newly created event(s), allowing the event to then be rendered. 
 
-```event-page.js```
+```EventPage```
 - Displays each event the user is a member of and/or has created.
 
 **handleClick** - Allows the user to delete an event form their dashboard.  
-// Zachary - TODO confirm that when a user deletes a public event they’ve joined, it only removes the public event from that user’s dashboard and NOT the entire public event.
 
-```header.js``` 
+```Header``` 
 - Confirms whether or not the user is logged in to an account or is a guest and then ensures the appropriate information is displayed dependent on the user’s logged in state.
 
-```image-form.js``` 
+```ImageForm``` 
 - Allows the user to find, select and upload an image.  
 
 **handleChange** - Allows the user to input a caption for an image they select to upload.
 
 **handleSubmit** - Submits the state of the image the user has selected to upload to the post-form component.
 
-```post-form.js```
+```PostForm```
 - Allows the user to create, update and submit a profile.
 
 **handleValidation** - Validates whether or not the bio of the user profile is a String data type.  included a bio in their profile.
