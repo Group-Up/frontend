@@ -37,5 +37,4 @@ const profileFetchRequest = () => (store) => {
     });
 };
 
-
 export { profileCreateRequest, profileUpdateRequest, profileFetchRequest };

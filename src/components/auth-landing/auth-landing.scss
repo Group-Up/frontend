@@ -1,0 +1,59 @@
+@import '../../style/vars';
+
+.landing {
+  width: 80%;
+  text-align: center;
+  margin: auto;
+  padding-bottom: 40px;
+
+  .button-mock {
+    margin: 10px;
+    background-color: $main-accent-dark;
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+  }
+
+  .button-mock:visited {
+    color: white;
+  }
+
+  .public-events {
+    text-align: left;
+  }
+
+  h2 {
+    margin-top: 150px;
+  }
+
+  .welcome-box {
+    img {
+      margin-top: 90px;
+      max-height: 150px;
+      display: inline-block;
+      transform: translate(0, 20px);
+    }
+
+    .welcome-aside {
+      display: inline-block;
+    }
+
+    h1 {
+      font-size: 70px;
+      margin: 10px 20px;
+      padding: 0;
+    }
+
+    h3 {
+      font-size: 30px;
+    }
+  }
+
+  a {
+    text-decoration: none;
+  }
+  .signup-link {
+    text-decoration: underline;
+  }
+}

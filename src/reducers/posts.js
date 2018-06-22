@@ -14,6 +14,13 @@ export default (state = [], { type, payload }) => {
     case 'POST_CREATE':
       validatePosts(payload);
       return [...state, payload];
+    case 'POST_REMOVE':
+      return state.filter(post => post._id !== payload._id);
+    case 'POST_UPDATE':
+      return state.map(post => (post._id === payload._id ? payload : post));
+    case 'IMAGE_CREATE':
+      validatePosts(payload);
+      return [...state, payload];
     default:
       return state;
   }

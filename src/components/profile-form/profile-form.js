@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import autoBind from '../../utils/autobind';
+import './profile-form.scss';
 
 const defaultState = {
   bio: '',
@@ -41,6 +42,7 @@ class ProfileForm extends React.Component {
     return (
       <form className='profile-form'
         onSubmit={this.handleSubmit}>
+        <label>{this.props.profile ? 'Update' : 'Create'} your Profile</label>
         <textarea
           name='bio'
           placeholder='bio'
@@ -49,7 +51,7 @@ class ProfileForm extends React.Component {
           onBlur={() => this.handleValidation('bio', this.state.bio)}
         />
         {this.state.bioDirty && <p>{this.state.bioError}</p>}
-        <button type='submit'>{this.props.profile ? 'update' : 'create'} profile </button>
+        <button type='submit'>{this.props.profile ? 'Update' : 'Create'} Profile </button>
       </form>
     );
   }

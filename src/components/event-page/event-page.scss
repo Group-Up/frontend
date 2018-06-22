@@ -1,0 +1,97 @@
+@import '../../style/vars';
+
+.event-page {
+  box-sizing: border-box;
+  margin-bottom: 40px;
+  height: 100%;
+
+  div {
+    height: 100%;
+  }
+
+  button {
+    margin: 0 2px;
+  }
+  .details {
+    float: right;
+  }
+
+  .details-div p {
+    font-size: 20px;
+    margin-left: 20px;
+  }
+}
+
+.event-page-main {
+  min-height: 100%;
+  box-sizing: border-box;
+  display: inline-block;
+  width: 60%;
+  background-color: $light-background;
+  border-left: 3px solid $light-accent;
+  border-right: 3px solid $light-accent;
+  padding: 10px;
+}
+
+.post-buttons {
+  text-align: center;
+
+  button {
+    background-color: $main-accent;
+    border: 1px solid $main-accent;
+  }
+  button:hover {
+    background-color: $main-accent-dark;
+    border: 1px solid $main-accent-dark;
+  }
+}
+
+.event-page-left {
+  width: 20%;
+  box-sizing: border-box;
+  display: inline-block;
+  vertical-align: top;
+  padding: 10px;
+  height: 100%;
+  overflow-wrap: break-spaces;
+
+  li {
+    list-style: none;
+    padding: 10px;
+  }
+  li:hover {
+    background-color: $main;
+    color: white;
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+  p {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.event-page-right {
+  width: 20%;
+  display: inline-block;
+  box-sizing: border-box;
+  vertical-align: top;
+  padding: 10px;
+  max-height: 100%;
+  overflow: scroll;
+}
+
+.delete-show {
+  text-align: center;
+  button {
+    background-color: $main-accent;
+    border: 1px solid $main-accent;
+    width: 80%;
+  }
+}
+
+.delete-hide {
+  display: none;
+}

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import validator from 'validator';
 import autobind from '../../utils/autobind';
+import './auth-form.scss';
 
 const defaultState = {
   username: '',

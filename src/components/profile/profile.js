@@ -6,7 +6,7 @@ import * as profileActions from '../../actions/profile';
 import * as imageActions from '../../actions/image';
 import autoBind from '../../utils/autobind';
 import ProfileForm from '../profile-form/profile-form';
-// import ImageForm from '../image-form/image-form';
+import './profile.scss';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -42,20 +42,22 @@ class Profile extends React.Component {
       JSXEditing =
         <div>
           <ProfileForm profile={profile} onComplete={this.handleUpdate} />
-          <button onClick={() => this.setState({ editing: false })}> Cancel</button>
+          <button onClick={() => this.setState({ editing: false })}> Cancel </button>
         </div>;
       JSXDisplay =
         <div>
-          <button onClick={() => this.setState({ editing: true })}> Edit</button>
+          <button onClick={() => this.setState({ editing: true })}> Edit Bio </button>
         </div>;
       JSXProfile =
         <div>
+          <img src={profile.profileImage}/>
+          <h2>{profile.username}</h2>
           <p>{profile.bio}</p>
           {this.state.editing ? JSXEditing : JSXDisplay}
         </div>;
     }
     return (
-      <div>
+      <div className='profile'>
         {profile ? JSXProfile : <ProfileForm onComplete={this.handleCreate} />}
       </div>
     );

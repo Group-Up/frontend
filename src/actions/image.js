@@ -1,21 +1,20 @@
 import superagent from 'superagent';
-import * as routes from '../utils/routes';
 
 const create = image => ({
   type: 'IMAGE_CREATE',
   payload: image,
 });
 
-const createRequest = image => (store) => {
+const createRequest = (image, event) => (store) => {
   const { token } = store.getState();
-
-  return superagent.post(`${API_URL}${routes.IMAGES}`)
+  return superagent.post(`${API_URL}/posts/image`)
     .set('Authorization', `Bearer ${token}`)
-    .field('caption', image.caption)
     .attach('image', image.image)
+    .field('caption', image.caption)
+    .field('event', event)
     .then((response) => {
       return store.dispatch(create(response.body));
     });
 };
 
-export { create, createRequest };
+export { createRequest };

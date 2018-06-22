@@ -39,12 +39,7 @@ class ImageForm extends React.Component {
     if (type === 'file') {
       fileToBase64String(files[0])
         .then(preview => this.setState({ preview }));
-
-      this.setState({
-        image: files[0],
-      }, () => {
-        console.log('This will print after the state has been changed');
-      });
+      this.setState({ image: files[0] });
     } else {
       this.setState({
         caption: value,
@@ -54,7 +49,7 @@ class ImageForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.onComplete(this.state);
+    this.props.onComplete(this.state, this.props.event._id);
 
     this.setState(this.emptyState);
   }
@@ -84,6 +79,7 @@ class ImageForm extends React.Component {
 
 ImageForm.propTypes = {
   onComplete: PropTypes.func,
+  event: PropTypes.object,
 };
 
 

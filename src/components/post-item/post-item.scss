@@ -1,0 +1,53 @@
+@import '../../style/vars';
+
+.hide {
+  display: none;
+}
+
+img {
+  max-width: 250px;
+}
+
+.post-item {
+  list-style: none;
+  border: 5px solid $light-accent;
+  box-sizing: border-box;
+  border-radius: 10px;
+  margin: 5px;
+  padding: 10px 30px;
+  background-color: white;
+
+  button {
+    float: right;
+    font-size: 10px;
+  }
+}
+
+.post-item:hover {
+  border: 5px solid $main-accent-dark;
+}
+
+.announcement {
+  h3 {
+    font-size: 30px;
+    color: $main-accent;
+  }
+  p {
+    font-size: 20px;
+  }
+}
+
+.text {
+  h3 {
+    font-size: 20px;
+  }
+  p {
+    font-size: 15px;
+    white-space: pre-line;
+  }
+
+}
+
+.photo {
+  background: yellow;
+}

@@ -1,13 +1,28 @@
 import superagent from 'superagent';
 import * as routes from '../utils/routes';
 
-const getPrivateEvents = events => ({
+const getEvents = events => ({
   type: 'EVENTS_GET',
+  payload: events,
+});
+
+const getPublicEvents = events => ({
+  type: 'EVENTS_GET_PUBLIC',
   payload: events,
 });
 
 const setEvent = event => ({
   type: 'EVENT_SET',
+  payload: event,
+});
+
+const updateEvent = event => ({
+  type: 'EVENT_UPDATE',
+  payload: event,
+});
+
+const removeEvent = event => ({
+  type: 'EVENT_REMOVE',
   payload: event,
 });
 
@@ -28,8 +43,41 @@ const getPrivateEventsRequest = () => (store) => {
     .set('Authorization', `Bearer ${token}`)
     .set('Content-Type', 'application/json')
     .then((response) => {
-      return store.dispatch(getPrivateEvents(response.body));
+      return store.dispatch(getEvents(response.body));
     });
 };
 
-export { eventCreateRequest, getPrivateEventsRequest };
+const getPublicEventsRequest = () => (store) => {
+  return superagent.get(`${API_URL}/events/public`)
+    .then((response) => {
+      return store.dispatch(getPublicEvents(response.body));
+    });
+};
+
+const updateEventRequest = event => (store) => {
+  const { token } = store.getState();
+  return superagent.put(`${API_URL}/events/${event._id}`)
+    .set('Authorization', `Bearer ${token}`)
+    .set('Content-Type', 'application/json')
+    .send(event)
+    .then((response) => {
+      return store.dispatch(updateEvent(response.body));
+    });
+};
+
+const removeEventRequest = event => (store) => {
+  const { token } = store.getState();
+  return superagent.del(`${API_URL}/events/${event._id}`)
+    .set('Authorization', `Bearer ${token}`)
+    .then(() => {
+      return store.dispatch(removeEvent(event));
+    });
+};
+
+export {
+  eventCreateRequest,
+  getPrivateEventsRequest,
+  removeEventRequest,
+  updateEventRequest,
+  getPublicEventsRequest,
+};
