@@ -11,3 +11,18 @@ html, body, div {
 html, body {
   background-color: white;
 }
+
+html, body {
+  height: 100%;
+}
+.main-main-app {
+  height: 100%;
+}
+
+.app {
+  height: 100%;
+
+  .main-app {
+    height: 100%;
+  }
+}
