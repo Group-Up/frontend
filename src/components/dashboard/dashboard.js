@@ -28,6 +28,7 @@ class Dashboard extends React.Component {
         .then(() => {
           this.props.pFetchPosts();
           this.props.pFetchEvents();
+          this.props.pFetchPublicEvents();
         })
         .catch(console.error);
     }
@@ -94,8 +95,8 @@ class Dashboard extends React.Component {
         <div className='dashboard-right'>
           <h3>Public Events</h3>
           {
-          this.props.events.length > 0 ?
-          this.props.events.map(event => <EventItem event={event} key={event._id}/>) :
+          this.props.publicEvents.length > 0 ?
+          this.props.publicEvents.map(event => <EventItem event={event} key={event._id}/>) :
             <p>No events to display</p>
         }
         </div>
@@ -113,6 +114,8 @@ Dashboard.propTypes = {
   posts: PropTypes.array,
   events: PropTypes.array,
   doCreateEvent: PropTypes.func,
+  publicEvents: PropTypes.array,
+  pFetchPublicEvents: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
@@ -120,12 +123,14 @@ const mapStateToProps = state => ({
   loggedIn: !!state.token,
   posts: state.posts,
   events: state.events,
+  publicEvents: state.publicEvents,
 });
 
 const mapDispatchToProps = dispatch => ({
   pFetchUserProfile: () => dispatch(profileActions.profileFetchRequest()),
   pFetchPosts: () => dispatch(postActions.getPostsRequest()),
   pFetchEvents: () => dispatch(eventActions.getPrivateEventsRequest()),
+  pFetchPublicEvents: () => dispatch(eventActions.getPublicEventsRequest()),
   doCreateEvent: event => dispatch(eventActions.eventCreateRequest(event)),
 });
 

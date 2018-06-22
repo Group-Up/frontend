@@ -1,6 +1,6 @@
 export default (state = [], { type, payload }) => {
   switch (type) {
-    case 'GET_PUBLIC_EVENTS':
+    case 'EVENTS_GET_PUBLIC':
       return payload;
     case 'TOKEN_REMOVE':
       return {};

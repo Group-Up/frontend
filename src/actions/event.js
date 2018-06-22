@@ -7,7 +7,7 @@ const getEvents = events => ({
 });
 
 const getPublicEvents = events => ({
-  type: 'EVENTS_PUBLIC_GET',
+  type: 'EVENTS_GET_PUBLIC',
   payload: events,
 });
 
