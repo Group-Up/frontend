@@ -71,6 +71,7 @@
     "clean-webpack-plugin": "^0.1.19",
     "express": "^4.16.3",
     "html-webpack-exclude-empty-assets-plugin": "^0.1.1",
+    "react-favicon": "0.0.14",
     "superagent": "^3.8.3",
     "uuid": "^3.2.1",
     "validator": "^10.3.0"
