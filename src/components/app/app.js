@@ -12,6 +12,7 @@ import * as profileActions from '../../actions/profile';
 import Profile from '../profile/profile';
 import EventPage from '../event-page/event-page';
 import * as eventActions from '../../actions/event';
+import { FAVICON } from '../../utils/constants';
 import '../../style/main.scss';
 
 class App extends React.Component {
@@ -29,7 +30,7 @@ class App extends React.Component {
       <div className='app'>
         <BrowserRouter>
           <div className='main-app'>
-            <Favicon url='https://groupup.s3.us-west-2.amazonaws.com/c665973f001ba0f4cd32c8b459ecea79.GroupUpFavicon.png'/>
+            <Favicon url={FAVICON}/>
             <Header/>
             <Route path='*' component={AuthRedirect}/>
             <Route exact path='/' component={AuthLanding}/>
