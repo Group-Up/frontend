@@ -10,7 +10,7 @@ import EventItem from '../event-item/event-item';
 import PostItem from '../post-item/post-item';
 import Modal from '../modal/modal';
 import autobind from '../../utils/autobind';
-import { EMAIL_BODY, EMAIL_SUBJECT } from '../../utils/constants';
+import { DASHBOARD_EMAIL_BODY, DASHBOARD_EMAIL_SUBJECT } from '../../utils/constants';
 import './dashboard.scss';
 
 class Dashboard extends React.Component {
@@ -54,7 +54,7 @@ class Dashboard extends React.Component {
                 <li key={i}>
                   <p>{ friend.name }</p>
                   <a
-                    href={`mailto:${friend.email}?subject=${EMAIL_SUBJECT}&body=${EMAIL_BODY}`}>
+                    href={`mailto:${friend.email}?subject=${DASHBOARD_EMAIL_SUBJECT}&body=${DASHBOARD_EMAIL_BODY}`}>
                     <p>{ friend.email }</p>
                   </a>
                 </li>)

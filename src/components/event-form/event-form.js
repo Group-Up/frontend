@@ -29,7 +29,7 @@ class EventForm extends React.Component {
     } else {
       this.props.onComplete(this.state);
     }
-    this.setState(this.props.event ? this.state : this.defaultState);
+    this.setState(this.props.event ? this.state : defaultState);
   }
 
   handleToggle() {

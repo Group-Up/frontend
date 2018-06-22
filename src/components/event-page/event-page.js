@@ -13,6 +13,7 @@ import EventItem from '../event-item/event-item';
 import Modal from '../modal/modal';
 import autobind from '../../utils/autobind';
 import './event-page.scss';
+import { EVENT_EMAIL_BODY, EVENT_EMAIL_SUBJECT } from '../../utils/constants';
 
 class EventPage extends React.Component {
   constructor(props) {
@@ -56,14 +57,32 @@ class EventPage extends React.Component {
   }
 
   render() {
-    const { selectedEvent, posts } = this.props;
+    const {
+      selectedEvent, posts, profile, publicEvents,
+    } = this.props;
     const sortedPosts = posts.sort((a, b) => {
       return new Date(b.timestamp) - new Date(a.timestamp);
     });
+    let show;
+    if (profile && selectedEvent) {
+      show = profile._id === selectedEvent.profile ? 'show' : 'hide';
+    }
+    const body = `${EVENT_EMAIL_BODY}groupup.site${this.props.location.pathname}`;
     const memberJSX =
       <div className='event-page'>
         <div className='event-page-left'>
-          <p>contacts here</p>
+          <h3>Contacts</h3>
+          {
+           profile && profile.friends.length > 0 ?
+           profile.friends.map((friend, i) => <li key={i}>
+             <p>{ friend.name }</p>
+             <a
+               href={`mailto:${friend.email}?subject=${EVENT_EMAIL_SUBJECT}&body=${body}`}>
+               <p>{ friend.email }</p>
+             </a>
+           </li>) :
+             <p>No contacts to display</p>
+          }
         </div>
 
         <div className='event-page-main'>
@@ -122,17 +141,17 @@ class EventPage extends React.Component {
                 <p>No posts to display</p>
             }
           </div>
-          <div className='delete'>
+          <div className={`delete-${show}`}>
             <button onClick={this.handleClick}>
               DELETE EVENT
             </button>
           </div>
         </div>
-        <div className='event-page-right'>
+        <div className='event-page-right' onClick={() => window.location.reload()}>
           <h3>Public Events</h3>
             {
-              this.props.publicEvents.length > 0 ?
-              this.props.publicEvents.map(event => <EventItem event={event} key={event._id}/>) :
+              publicEvents.length > 0 ?
+              publicEvents.map(event => <EventItem event={event} key={event._id}/>) :
               <p>No events to display</p>
             }
         </div>

@@ -8,7 +8,7 @@
 
 .dashboard-main {
   width: 60%;
-  height: 100%;
+  min-height: 100%;
   display: inline-block;
   background-color: $light-background;
   box-sizing: border-box;
@@ -19,6 +19,9 @@
   .posts {
     display: flex;
     flex-wrap: wrap;
+    align-items: flex-start;
+    clear: both;
+    padding-bottom: 40px;
   }
 
   .event-button {
@@ -27,6 +30,8 @@
     button {
       width: 80%;
       height: 50px;
+      background-color: $main-accent;
+      border: 1px solid $main-accent;
     }
   }
 
