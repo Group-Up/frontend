@@ -15,4 +15,4 @@ const getEventRequest = id => (store) => {
     });
 };
 
-export { getEventRequest };
+export { getEventRequest }; // eslint-disable-line

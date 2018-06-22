@@ -36,7 +36,7 @@ const loginRequest = user => (store) => {
       const { token } = response.body;
       localStorage.setItem('GU-Token', token);
       return store.dispatch(setToken(token));
-    })
+    });
 };
 
 export { logout, loginRequest, signupRequest };

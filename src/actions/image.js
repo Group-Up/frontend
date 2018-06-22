@@ -17,4 +17,4 @@ const createRequest = (image, event) => (store) => {
     });
 };
 
-export { createRequest };
+export { createRequest }; // eslint-disable-line
