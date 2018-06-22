@@ -5,8 +5,7 @@ export default class Footer extends React.Component {
   render() {
     return (
       <footer>
-        <p>Creaters: Carl Olson, Sarah Geyer, Mario Flores Jr., Zachary Schumpert</p>
-        <p>(Github link here)</p>
+        <p>Visit our <a href='https://github.com/Group-Up'>Github</a></p>
       </footer>
     );
   }

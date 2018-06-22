@@ -68,10 +68,12 @@ class EventPage extends React.Component {
           <h1>{ selectedEvent.title }</h1>
           <button
             className='details'
-            onClick={() => this.setState({ eventEdit: true })}>Edit Details</button>
-          <p>Date: { selectedEvent.eventDate }</p>
-          <p>Location: { selectedEvent.location }</p>
-          <p>{ selectedEvent.description }</p>
+            onClick={() => this.setState({ eventEdit: true })}>Edit Event Details</button>
+          <div className='details-div'>
+            <p>Date: { selectedEvent.eventDate }</p>
+            <p>Location: { selectedEvent.location }</p>
+            <p>{ selectedEvent.description }</p>
+          </div>
           { (selectedEvent && selectedEvent.title) &&
           <Modal
             show={this.state.eventEdit}
@@ -110,6 +112,7 @@ class EventPage extends React.Component {
               handleClose={() => this.setState({ addAnnouncement: false })}
             />
           </Modal>
+          <h1>Posts</h1>
           <div className='posts'>
             {
               posts.length > 0 ?
@@ -124,7 +127,7 @@ class EventPage extends React.Component {
           </div>
         </div>
         <div className='event-page-right'>
-          <p>something else here</p>
+          <p>public events here</p>
         </div>
       </div>;
 
