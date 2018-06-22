@@ -54,8 +54,8 @@ class AuthLanding extends React.Component {
         <h1>Public events</h1>
         <div className='public-events'>
         {
-          this.props.events.length > 0 ?
-          this.props.events.map(event => <EventItem event={event} key={event._id}/>) :
+          this.props.publicEvents.length > 0 ?
+          this.props.publicEvents.map(event => <EventItem event={event} key={event._id}/>) :
             <p>No events to display</p>
         }
         </div>
@@ -96,13 +96,13 @@ AuthLanding.propTypes = {
   doSignup: PropTypes.func,
   history: PropTypes.object,
   location: PropTypes.object,
-  events: PropTypes.array,
+  publicEvents: PropTypes.array,
   loggedIn: PropTypes.bool,
   fetchPublicEvents: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
-  events: state.events,
+  publicEvents: state.publicEvents,
   loggedIn: !!state.token,
 });
 
