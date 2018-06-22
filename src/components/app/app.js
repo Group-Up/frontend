@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { BrowserRouter, Route } from 'react-router-dom';
+import Favicon from 'react-favicon';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import Dashboard from '../dashboard/dashboard';
@@ -28,6 +29,7 @@ class App extends React.Component {
       <div className='app'>
         <BrowserRouter>
           <div className='main-app'>
+            <Favicon url='https://groupup.s3.us-west-2.amazonaws.com/c665973f001ba0f4cd32c8b459ecea79.GroupUpFavicon.png'/>
             <Header/>
             <Route path='*' component={AuthRedirect}/>
             <Route exact path='/' component={AuthLanding}/>
