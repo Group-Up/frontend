@@ -6,6 +6,11 @@ const getEvents = events => ({
   payload: events,
 });
 
+const getPublicEvents = events => ({
+  type: 'EVENTS_GET_PUBLIC',
+  payload: events,
+});
+
 const setEvent = event => ({
   type: 'EVENT_SET',
   payload: event,
@@ -45,7 +50,7 @@ const getPrivateEventsRequest = () => (store) => {
 const getPublicEventsRequest = () => (store) => {
   return superagent.get(`${API_URL}/events/public`)
     .then((response) => {
-      return store.dispatch(getEvents(response.body));
+      return store.dispatch(getPublicEvents(response.body));
     });
 };
 

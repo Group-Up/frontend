@@ -9,6 +9,7 @@ import * as routes from '../../utils/routes';
 import PostItem from '../post-item/post-item';
 import PostForm from '../post-form/post-form';
 import EventForm from '../event-form/event-form';
+import EventItem from '../event-item/event-item';
 import Modal from '../modal/modal';
 import autobind from '../../utils/autobind';
 import './event-page.scss';
@@ -32,6 +33,7 @@ class EventPage extends React.Component {
       const id = this.props.location.pathname.split('/')[2];
       this.props.fetchProfile()
         .then(() => {
+          this.props.fetchPublicEvents();
           this.props.fetchSelectedEvent(id)
             .then((selectedEvent) => {
               const creator = this.props.profile._id === selectedEvent.payload.profile;
@@ -115,7 +117,12 @@ class EventPage extends React.Component {
           </div>
         </div>
         <div className='event-page-right'>
-          <p>something else here</p>
+          <h3>Public Events</h3>
+            {
+              this.props.publicEvents.length > 0 ?
+              this.props.publicEvents.map(event => <EventItem event={event} key={event._id}/>) :
+              <p>No events to display</p>
+            }
         </div>
       </div>;
 
@@ -150,6 +157,8 @@ EventPage.propTypes = {
   loggedIn: PropTypes.bool,
   profile: PropTypes.object,
   fetchProfile: PropTypes.func,
+  fetchPublicEvents: PropTypes.func,
+  publicEvents: PropTypes.array,
 };
 
 const mapStateToProps = state => ({
@@ -157,6 +166,7 @@ const mapStateToProps = state => ({
   selectedEvent: state.selectedEvent,
   loggedIn: !!state.token,
   profile: state.profile,
+  publicEvents: state.publicEvents,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -166,6 +176,7 @@ const mapDispatchToProps = dispatch => ({
   deleteEvent: event => dispatch(eventActions.removeEventRequest(event)),
   updateEvent: event => dispatch(eventActions.updateEventRequest(event)),
   fetchProfile: () => dispatch(profileActions.profileFetchRequest()),
+  fetchPublicEvents: () => dispatch(eventActions.getPublicEventsRequest()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EventPage);
