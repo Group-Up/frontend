@@ -1,0 +1,15 @@
+@import '../../style/vars';
+
+.auth-form {
+  text-align: center;
+  margin: auto;
+  input {
+    display: block;
+    width: 40%;
+    margin: 5px auto;
+    height: 30px;
+  }
+  button {
+    text-align: center;
+  }
+}

@@ -32,7 +32,8 @@ header {
     vertical-align: middle;
   }
   li:hover {
-    background-color: $main-accent;
+    background-color: $light-accent;
+    color: black;
   }
   ul {
     float: right;

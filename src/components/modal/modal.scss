@@ -19,16 +19,23 @@
     height: 200px;
     padding: 10px;
     border-radius: 10px;
+    h4 {
+      margin: 0;
+      padding: 0;
+    }
   }
 
   .modal-main form {
     text-align: left;
     padding: 10px;
 
-    input {
+    input, textarea {
       width: 80%;
       display: block;
       margin: 5px;
+    }
+    textarea {
+      height: 80px;
     }
     .checkbox {
       box-sizing: border-box;

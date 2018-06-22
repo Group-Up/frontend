@@ -14,8 +14,10 @@ class EventItem extends React.Component {
     return (
       <Link to={route}>
         <div className='event-item'>
-          <h4>Event: {title} | {eventDate} | {location}</h4>
+          <h3>{title}</h3>
+          <h4> Date: {eventDate} | Location: {location}</h4>
           <img src={imageUrl}/>
+          <button>Click to view</button>
         </div>
       </Link>
     );

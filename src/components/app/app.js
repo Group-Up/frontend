@@ -27,7 +27,7 @@ class App extends React.Component {
     return (
       <div className='app'>
         <BrowserRouter>
-          <div>
+          <div className='main-app'>
             <Header/>
             <Route path='*' component={AuthRedirect}/>
             <Route exact path='/' component={AuthLanding}/>

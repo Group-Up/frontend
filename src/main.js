@@ -12,4 +12,5 @@ const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
 
 const app = document.createElement('div');
 document.body.appendChild(app);
+app.classList.add('main-main-app');
 render(<Provider store={ store }><App/></Provider>, app);

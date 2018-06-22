@@ -9,6 +9,8 @@ import AuthForm from '../auth-form/auth-form';
 import EventItem from '../event-item/event-item';
 import { GOOGLE_LOGIN_REDIRECT, CREATE_ACCOUNT } from '../../utils/constants';
 import autobind from '../../utils/autobind';
+import './auth-landing.scss';
+import logoLarge from '../../assets/logo-large.png';
 
 class AuthLanding extends React.Component {
   constructor(props) {
@@ -42,12 +44,21 @@ class AuthLanding extends React.Component {
   render() {
     const landingJSX =
       <div>
-        <p>Recent events:</p>
+        <div className='welcome-box'>
+          <img src={logoLarge}/>
+          <div className='welcome-aside'>
+            <h1>Welcome to GroupUp!</h1>
+            <h3><Link className='signup-link' to={routes.SIGNUP}>SIGN UP</Link> to begin making your own events</h3>
+          </div>
+        </div>
+        <h1>Public events</h1>
+        <div className='public-events'>
         {
           this.props.publicEvents.length > 0 ?
           this.props.publicEvents.map(event => <EventItem event={event} key={event._id}/>) :
             <p>No events to display</p>
         }
+        </div>
       </div>;
 
     const signupJSX =
@@ -55,8 +66,8 @@ class AuthLanding extends React.Component {
         <h2>Create an Account</h2>
         <AuthForm onComplete={this.handleSignup} type='signup'/>
         <p>Already have one?</p>
-        <Link to={routes.LOGIN}>Log in</Link>
-        <a href={GOOGLE_LOGIN_REDIRECT}>Sign in with Google</a>
+        <Link className='button-mock' to={routes.LOGIN}>Log in</Link>
+        <a className='button-mock' href={GOOGLE_LOGIN_REDIRECT}>Sign in with Google</a>
       </div>;
 
     const loginJSX =
@@ -64,8 +75,8 @@ class AuthLanding extends React.Component {
         <h2>Log in</h2>
         <AuthForm onComplete={this.handleLogin} type='login'/>
         <p>{ CREATE_ACCOUNT }</p>
-        <Link to={routes.SIGNUP}>Sign up</Link>
-        <a href={GOOGLE_LOGIN_REDIRECT}>Sign in with Google</a>
+        <Link className='button-mock' to={routes.SIGNUP}>Sign up</Link>
+        <a className='button-mock' href={GOOGLE_LOGIN_REDIRECT}>Sign in with Google</a>
       </div>;
 
     const { location } = this.props;
