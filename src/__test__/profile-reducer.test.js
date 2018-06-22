@@ -12,12 +12,19 @@ describe('profile reducer', () => {
     events: [],
     posts: [],
   };
+  test('default: CLIENT_SET', () => {
+    const action = {
+      type: 'CLIENT_SET',
+      payload: testState.profile,
+    };
+    expect(profileReducer(testState.profile, action)).toEqual(testState.profile);
+  });
   test('CLIENT_PROFILE_SET', () => {
     const action = {
       type: 'CLIENT_PROFILE_SET',
       payload: testState.profile,
     };
-    expect(profileReducer(testState, action)).toEqual(testState.profile);
+    expect(profileReducer(testState.profile, action)).toEqual(testState.profile);
   });
   test('TOKEN_REMOVE', () => {
     const action = {
