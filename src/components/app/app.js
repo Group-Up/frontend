@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { BrowserRouter, Route } from 'react-router-dom';
+import Favicon from 'react-favicon';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import Dashboard from '../dashboard/dashboard';
@@ -11,6 +12,7 @@ import * as profileActions from '../../actions/profile';
 import Profile from '../profile/profile';
 import EventPage from '../event-page/event-page';
 import * as eventActions from '../../actions/event';
+import { FAVICON } from '../../utils/constants';
 import '../../style/main.scss';
 
 class App extends React.Component {
@@ -28,6 +30,7 @@ class App extends React.Component {
       <div className='app'>
         <BrowserRouter>
           <div className='main-app'>
+            <Favicon url={FAVICON}/>
             <Header/>
             <Route path='*' component={AuthRedirect}/>
             <Route exact path='/' component={AuthLanding}/>
