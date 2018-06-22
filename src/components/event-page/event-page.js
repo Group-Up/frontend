@@ -84,7 +84,6 @@ class EventPage extends React.Component {
              <p>No contacts to display</p>
           }
         </div>
-
         <div className='event-page-main'>
           <h1>{ selectedEvent.title }</h1>
           <button
@@ -99,7 +98,10 @@ class EventPage extends React.Component {
           <Modal
             show={this.state.eventEdit}
             handleClose={() => this.setState({ eventEdit: false })}>
-            <EventForm event={selectedEvent} onComplete={this.props.updateEvent}/>
+            <EventForm event={selectedEvent} onComplete={(event) => {
+              this.forceUpdate();
+              this.props.updateEvent(event);
+            }}/>
           </Modal> }
           <Modal show={this.state.addPhoto} handleClose={() => this.setState({ addPhoto: false })}>
             <h4>Photo</h4>

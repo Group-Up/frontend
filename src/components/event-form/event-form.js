@@ -23,13 +23,14 @@ class EventForm extends React.Component {
     this.setState({ [name]: value });
   }
 
-  handleSubmit() {
+  handleSubmit(event) {
+    event.preventDefault();
     if (this.props.event) {
       this.props.onComplete({ ...this.state, _id: this.props.event._id });
     } else {
       this.props.onComplete(this.state);
     }
-    this.setState(this.props.event ? this.state : defaultState);
+    return this.setState(this.props.event ? this.state : defaultState);
   }
 
   handleToggle() {
