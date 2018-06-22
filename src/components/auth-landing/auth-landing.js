@@ -15,13 +15,14 @@ import logoLarge from '../../assets/logo-large.png';
 class AuthLanding extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { error: false };
     autobind.call(this, AuthLanding);
   }
 
   componentDidMount() {
     if (!this.props.loggedIn) {
       this.props.fetchPublicEvents()
-        .catch(console.error);
+        .catch(() => this.setState({ error: true }));
     }
   }
 
@@ -30,7 +31,7 @@ class AuthLanding extends React.Component {
       .then(() => {
         this.props.history.push(routes.DASHBOARD);
       })
-      .catch(console.error);
+      .catch(() => this.setState({ error: true }));
   }
 
   handleSignup(user) {
@@ -38,7 +39,7 @@ class AuthLanding extends React.Component {
       .then(() => {
         this.props.history.push(routes.CREATE_PROFILE);
       })
-      .catch(console.error);
+      .catch(() => this.setState({ error: true }));
   }
 
   render() {
@@ -52,6 +53,7 @@ class AuthLanding extends React.Component {
           </div>
         </div>
         <h1>Public events</h1>
+        { this.state.error && <h3 className='error'>Could not fetch public events</h3> }
         <div className='public-events'>
         {
           this.props.publicEvents.length > 0 ?
@@ -64,6 +66,7 @@ class AuthLanding extends React.Component {
     const signupJSX =
       <div>
         <h2>Create an Account</h2>
+        { this.state.error && <h3 className='error'>Sign up error. Please try again.</h3> }
         <AuthForm onComplete={this.handleSignup} type='signup'/>
         <p>Already have one?</p>
         <Link className='button-mock' to={routes.LOGIN}>Log in</Link>
@@ -73,6 +76,7 @@ class AuthLanding extends React.Component {
     const loginJSX =
       <div>
         <h2>Log in</h2>
+        { this.state.error && <h3 className='error'>Error. Please confirm your username and password and try again.</h3> }
         <AuthForm onComplete={this.handleLogin} type='login'/>
         <p>{ CREATE_ACCOUNT }</p>
         <Link className='button-mock' to={routes.SIGNUP}>Sign up</Link>

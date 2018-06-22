@@ -30,14 +30,15 @@ class PostForm extends React.Component {
     if (!this.state.titleError) {
       if (this.props.type === 'announcement') {
         this.props.onComplete({ ...this.state, isAnnouncement: true, type: this.props.type }, id);
-        this.setState(defaultState);
+        this.setState(this.props.post ? this.state : defaultState);
         this.props.handleClose();
       } else if (this.props.type === 'photo') {
         this.props.onComplete({ ...this.state, imageUrl: '' });
+        this.setState(this.props.post ? this.state : defaultState);
         this.props.handleClose();
       } else {
         this.props.onComplete({ ...this.state, type: this.props.type }, id);
-        this.setState(defaultState);
+        this.setState(this.props.post ? this.state : defaultState);
         this.props.handleClose();
       }
     } else {

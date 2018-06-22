@@ -1,8 +1,10 @@
 
 export const TOKEN_COOKIE_KEY = 'GU-Token';
 export const CREATE_ACCOUNT = 'Don\'t have an account? Create one.';
-export const EMAIL_SUBJECT = 'Hello from GroupUp!';
-export const EMAIL_BODY = 'Please join the app! Find it at groupup.site'; // TODO: change
+export const DASHBOARD_EMAIL_SUBJECT = 'Hello from GroupUp!';
+export const DASHBOARD_EMAIL_BODY = 'Please join the app! Find it at groupup.site';
+export const EVENT_EMAIL_SUBJECT = 'Attend my event';
+export const EVENT_EMAIL_BODY = 'Please let me know if you can come to my event. Visit it at ';
 let redirect;
 if (!process.env.API_URL) redirect = API_URL;
 else redirect = process.env.API_URL;
