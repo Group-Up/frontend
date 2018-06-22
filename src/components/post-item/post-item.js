@@ -17,13 +17,13 @@ class PostItem extends React.Component {
     const postClass = `post-item ${post.type}`;
     return (
       <li className={postClass}>
+        <button onClick={() => this.props.deletePost(post)} className={show}> x </button>
+        <button onClick={() => this.setState({ editing: true })} className={show}>edit</button>
         <h3>{ post.title }</h3>
         <p>{ post.description }</p>
         <p>{ post.likes.length > 0 && post.likes.length }</p>
         <img src={post.imageUrl}/>
-        <button onClick={() => this.props.deletePost(post)} className={show}> Delete </button>
         <div className={show}>
-          <button onClick={() => this.setState({ editing: true })}>Edit post</button>
           <Modal handleClose={() => this.setState({ editing: false })} show={this.state.editing}>
             <PostForm
               onComplete={this.props.updatePost}

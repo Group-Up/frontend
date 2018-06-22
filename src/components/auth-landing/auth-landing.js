@@ -9,6 +9,7 @@ import AuthForm from '../auth-form/auth-form';
 import EventItem from '../event-item/event-item';
 import { GOOGLE_LOGIN_REDIRECT, CREATE_ACCOUNT } from '../../utils/constants';
 import autobind from '../../utils/autobind';
+import './auth-landing.scss';
 
 class AuthLanding extends React.Component {
   constructor(props) {

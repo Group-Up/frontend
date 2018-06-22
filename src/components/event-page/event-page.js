@@ -66,6 +66,9 @@ class EventPage extends React.Component {
 
         <div className='event-page-main'>
           <h1>{ selectedEvent.title }</h1>
+          <button
+            className='details'
+            onClick={() => this.setState({ eventEdit: true })}>Edit Details</button>
           <p>Date: { selectedEvent.eventDate }</p>
           <p>Location: { selectedEvent.location }</p>
           <p>{ selectedEvent.description }</p>
@@ -75,31 +78,32 @@ class EventPage extends React.Component {
             handleClose={() => this.setState({ eventEdit: false })}>
             <EventForm event={selectedEvent} onComplete={this.props.updateEvent}/>
           </Modal> }
-          <button onClick={() => this.setState({ eventEdit: true })}>Edit Details</button>
-          <button className='delete' onClick={this.handleClick}>
-            DELETE EVENT
-          </button>
-          <button onClick={() => this.setState({ addPhoto: true })}>Upload photo</button>
           <Modal show={this.state.addPhoto} handleClose={() => this.setState({ addPhoto: false })}>
+            <h4>Photo</h4>
             <PostForm
               type='photo'
               onComplete={this.props.createPostRequest}
               handleClose={() => this.setState({ addPhoto: false })}/>
           </Modal>
-
-          <button onClick={() => this.setState({ addText: true })}>Make text post</button>
           <Modal show={this.state.addText} handleClose={() => this.setState({ addText: false })}>
+            <h4>Text post</h4>
             <PostForm
               type='text'
               onComplete={this.props.createPostRequest}
               handleClose={() => this.setState({ addText: false })}
             />
           </Modal>
+          <div className='post-buttons'>
+            <button onClick={() => this.setState({ addPhoto: true })}>Upload photo</button>
+            <button onClick={() => this.setState({ addText: true })}>Make text post</button>
+            <button
+              onClick={() => this.setState({ addAnnouncement: true })}>Make announcement</button>
+          </div>
 
-          <button onClick={() => this.setState({ addAnnouncement: true })}>Add announcement</button>
           <Modal
             show={this.state.addAnnouncement}
             handleClose={() => this.setState({ addAnnouncement: false })}>
+            <h4>Announcement</h4>
             <PostForm
               type='announcement'
               onComplete={this.props.createPostRequest}
@@ -112,6 +116,11 @@ class EventPage extends React.Component {
                 sortedPosts.map(post => <PostItem post={post} key={post._id} show={true}/>) :
                 <p>No posts to display</p>
             }
+          </div>
+          <div className='delete'>
+            <button onClick={this.handleClick}>
+              DELETE EVENT
+            </button>
           </div>
         </div>
         <div className='event-page-right'>

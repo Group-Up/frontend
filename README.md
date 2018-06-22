@@ -5,7 +5,7 @@
 [![David](https://img.shields.io/david/expressjs/express.svg)](https://github.com/groupUp/groupUp)
 [![Packagist](https://img.shields.io/packagist/l/doctrine/orm.svg)](https://github.com/groupUp/groupUp)
 
-![groupUp](src/assets/GroupUpLogo.png)
+![groupUp](src/assets/logo-small.png)
 
 **Author**: Zachary Schumpert, Sarah Geyer, Carl Olson, Mario Flores Jr.
 

@@ -2,6 +2,25 @@
 
 .event-page {
   box-sizing: border-box;
+  button {
+    margin: 0 2px;
+  }
+  .details {
+    float: right;
+  }
+}
+
+.post-buttons {
+  text-align: center;
+
+  button {
+    background-color: $main-accent;
+    border: 1px solid $main-accent;
+  }
+  button:hover {
+    background-color: $main-accent-dark;
+    border: 1px solid $main-accent-dark;
+  }
 }
 
 .event-page-left {
@@ -32,5 +51,10 @@
 }
 
 .delete {
-  background-color: $main-accent;
+  text-align: center;
+  button {
+    background-color: $main-accent;
+    border: 1px solid $main-accent;
+    width: 80%;
+  }
 }
