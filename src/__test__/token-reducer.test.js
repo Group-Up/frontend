@@ -18,4 +18,11 @@ describe('Token Reducer', () => {
     };
     expect(tokenReducer(testState.token, action)).toBeNull();
   });
+  test('default IMAGE_CREATE', () => {
+    const action = {
+      type: 'IMAGE_CREATE',
+      payload: testState.token,
+    };
+    expect(tokenReducer(testState.token, action)).toEqual('the token');
+  });
 });
