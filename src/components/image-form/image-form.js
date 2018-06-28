@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import autoBind from '../../utils/autobind';
+import './image-form.scss';
 
 const GU_003 = 'File Required';
 
@@ -49,12 +50,16 @@ class ImageForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.onComplete(this.state, this.props.event._id);
-
+    if (this.props.showCaption) {
+      this.props.onComplete(this.state, this.props.event._id);
+    } else {
+      this.props.onComplete(this.props.profile, this.state); 
+    }
     this.setState(this.emptyState);
   }
 
   render() {
+    const showHide = this.props.showCaption ? 'post-image-caption' : 'profile-image';
     return (
       <form className='image-form' onSubmit={this.handleSubmit}>
         <img src={this.state.preview} />
@@ -64,20 +69,24 @@ class ImageForm extends React.Component {
           name='photo'
           onChange={this.handleChange}
         />
-        <label>Caption</label>
-        <input
-          type='text'
-          name='caption'
-          value={this.state.caption}
-          onChange={this.handleChange}
-        />
-        <button type='submit'>Upload an Image!</button>
+        <div className={showHide}>
+          <label>Caption</label>
+          <input
+            type='text'
+            name='caption'
+            value={this.state.caption}
+            onChange={this.handleChange}
+          />
+        </div>
+        <button type='submit'>{ this.props.showCaption ? 'Upload an Image!' : 'Change Image' }</button>
       </form>
     );
   }
 }
 
 ImageForm.propTypes = {
+  profile: PropTypes.object,
+  showCaption: PropTypes.bool,
   onComplete: PropTypes.func,
   event: PropTypes.object,
 };

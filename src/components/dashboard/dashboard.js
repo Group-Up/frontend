@@ -45,7 +45,7 @@ class Dashboard extends React.Component {
     return (
       <div className='dashboard'>
         <div className='dashboard-left'>
-          <Profile profile={profile}/>
+          <Profile showCaption={false} profile={profile}/>
           <div className='contacts'>
             <h3>Contacts</h3>
             <ul>

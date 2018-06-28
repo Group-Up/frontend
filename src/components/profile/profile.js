@@ -6,6 +6,7 @@ import * as profileActions from '../../actions/profile';
 import * as imageActions from '../../actions/image';
 import autoBind from '../../utils/autobind';
 import ProfileForm from '../profile-form/profile-form';
+import ImageForm from '../image-form/image-form';
 import './profile.scss';
 
 class Profile extends React.Component {
@@ -14,6 +15,7 @@ class Profile extends React.Component {
 
     this.state = {
       editing: false,
+      editingImage: false,
     };
 
     autoBind.call(this, Profile);
@@ -31,29 +33,49 @@ class Profile extends React.Component {
     this.setState({ editing: false });
   }
 
+  handleImageUpdate(profile, image) {
+    this.props.profileImageUpdate(profile, image);
+    this.setState({ editingImage: false });
+  }
+
   render() {
     const { profile } = this.props;
 
     let JSXEditing = null;
     let JSXDisplay = null;
     let JSXProfile = null;
+    let JSXUpdatingImage = null;
 
     if (profile) {
       JSXEditing =
-        <div>
+        <div className='profile-display'>
           <ProfileForm profile={profile} onComplete={this.handleUpdate} />
           <button onClick={() => this.setState({ editing: false })}> Cancel </button>
         </div>;
+      JSXUpdatingImage = 
+        <div className='profile-display'>
+          <ImageForm 
+            profile={profile} 
+            show={this.props.showCaption} 
+            onComplete={this.handleImageUpdate}
+          />
+          <button onClick={() => this.setState({ editingImage: false })}> Cancel </button>
+        </div>;
       JSXDisplay =
-        <div>
+        <div className='profile-display'>
           <button onClick={() => this.setState({ editing: true })}> Edit Bio </button>
+          <button onClick={() => this.setState({ editingImage: true })}> 
+            Edit Profile Image 
+          </button>
         </div>;
       JSXProfile =
         <div>
           <img src={profile.profileImage}/>
           <h2>{profile.username}</h2>
           <p>{profile.bio}</p>
-          {this.state.editing ? JSXEditing : JSXDisplay}
+          {!this.state.editing && !this.state.editingImage ? JSXDisplay : undefined}
+          {this.state.editing && JSXEditing}
+          {this.state.editingImage && JSXUpdatingImage}
         </div>;
     }
     return (
@@ -69,7 +91,9 @@ Profile.propTypes = {
   profileUpdate: PropTypes.func,
   profileCreate: PropTypes.func,
   doCreateImage: PropTypes.func,
+  profileImageUpdate: PropTypes.func,
   history: PropTypes.object,
+  showCaption: PropTypes.bool,
 };
 
 
@@ -80,6 +104,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   profileCreate: profile => dispatch(profileActions.profileCreateRequest(profile)),
   profileUpdate: profile => dispatch(profileActions.profileUpdateRequest(profile)),
+  profileImageUpdate: (profile, image) => dispatch(profileActions.profileUpdateImage(profile, image)),
   doCreateImage: image => dispatch(imageActions.createRequest(image)),
 });
 
