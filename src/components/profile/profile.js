@@ -104,7 +104,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   profileCreate: profile => dispatch(profileActions.profileCreateRequest(profile)),
   profileUpdate: profile => dispatch(profileActions.profileUpdateRequest(profile)),
-  profileImageUpdate: (profile, image) => dispatch(profileActions.profileUpdateImage(profile, image)),
+  profileImageUpdate: (profile, image) => {
+    return dispatch(profileActions.profileUpdateImage(profile, image));
+  },
   doCreateImage: image => dispatch(imageActions.createRequest(image)),
 });
 
