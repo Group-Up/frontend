@@ -83,7 +83,11 @@ class PostForm extends React.Component {
     return (
       <div>
         { type === 'photo' ?
-        <ImageForm event={this.props.selectedEvent} onComplete={this.props.pPostImageRequest}/> 
+        <ImageForm 
+          show={true} 
+          event={this.props.selectedEvent} 
+          onComplete={this.props.pPostImageRequest}
+        /> 
         : nonImagePostJSX }
       </div>
     );
