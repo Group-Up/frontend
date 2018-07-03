@@ -27,6 +27,17 @@ const profileUpdateRequest = profile => (store) => {
     });
 };
 
+const profileUpdateImage = (profile, image) => (store) => {
+  const { token } = store.getState();
+  return superagent.put(`${API_URL}/profile/image`)
+    .set('Authorization', `Bearer ${token}`)
+    .attach('image', image.image)
+    .field('profile', profile)
+    .then((response) => {
+      return store.dispatch(setProfile(response.body));
+    });
+};
+
 const profileFetchRequest = () => (store) => {
   const { token } = store.getState();
   return superagent.get(`${API_URL}/profiles/me`)
@@ -37,4 +48,4 @@ const profileFetchRequest = () => (store) => {
     });
 };
 
-export { profileCreateRequest, profileUpdateRequest, profileFetchRequest };
+export { profileCreateRequest, profileUpdateRequest, profileFetchRequest, profileUpdateImage };

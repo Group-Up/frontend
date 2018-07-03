@@ -42,7 +42,7 @@ class ProfileForm extends React.Component {
     return (
       <form className='profile-form'
         onSubmit={this.handleSubmit}>
-        <label>{this.props.profile ? 'Update' : 'Create'} your Profile</label>
+        <label>{this.props.profile ? 'Update Your Profile' : 'Add a short bio to create your profile'}</label>
         <textarea
           name='bio'
           placeholder='bio'
